@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ANDRÉE — Underground Electronic Artist</title>
+<meta name="description" content="ANDRÉE — dark electronic sound, live sets and original merch. 20GEMS series, DRKSD collective.">
+<meta property="og:title" content="ANDRÉE">
+<meta property="og:description" content="Dark sound. Precise vision. Every set a rough gem, cut live.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0a09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "ANDRÉE",
+  "genre": "Electronic",
+  "url": "https://andree.example",
+  "sameAs": ["https://www.instagram.com/andreedrksd/", "https://www.youtube.com/@ANDREEDRKSD"]
+}
+</script>
+<style>
+/* ============================================================
+   TOKENS
+============================================================ */
+:root{
+  --void:#0a0a09;
+  --surface:#131311;
+  --surface-2:#1a1a17;
+  --paper:#f3f1ea;
+  --smoke:#88857c;
+  --smoke-dim:#59564f;
+  --line:#28271f;
+  --line-soft:#1d1c17;
+  --accent:#bdb6a1;
+  --accent-dim:#5c584c;
+
+  --f-display:'Fraunces', serif;
+  --f-body:'Inter', sans-serif;
+  --f-mono:'JetBrains Mono', monospace;
+
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-2:cubic-bezier(.65,0,.35,1);
+
+  --container: min(1400px, 92vw);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--void);}
+html,body{height:100%;}
+body{
+  font-family:var(--f-body);
+  background:var(--void);
+  color:var(--paper);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  cursor:none;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;background:none;border:none;color:inherit;cursor:none;}
+ul{list-style:none;}
+input,textarea{font-family:inherit;background:none;border:none;color:inherit;outline:none;}
+::selection{background:var(--paper);color:var(--void);}
+
+@media (hover:none){ body,a,button{cursor:auto;} }
+
+.wrap{width:var(--container);margin-inline:auto;}
+
+/* Reveal helper */
+.reveal{opacity:0;}
+
+/* ============================================================
+   TYPE SCALE
+============================================================ */
+.eyebrow{
+  font-family:var(--f-mono);
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--smoke);
+  display:inline-flex;
+  align-items:center;
+  gap:.6em;
+}
+.eyebrow::before{
+  content:'';
+  width:22px;height:1px;
+  background:var(--accent-dim);
+  display:inline-block;
+}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.02;letter-spacing:-.01em;}
+.italic{font-style:italic;font-weight:400;}
+.serif-num{font-family:var(--f-mono);font-weight:400;}
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+.cursor-dot,.cursor-ring{
+  position:fixed;top:0;left:0;
+  pointer-events:none;
+  z-index:9999;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+}
+.cursor-dot{
+  width:6px;height:6px;
+  background:var(--paper);
+}
+.cursor-ring{
+  width:36px;height:36px;
+  border:1px solid var(--paper);
+  transition:width .3s var(--ease), height .3s var(--ease), border-color .3s;
+}
+.cursor-ring.big{width:80px;height:80px;}
+.cursor-ring.gem{border-color:var(--accent);}
+@media (hover:none){ .cursor-dot,.cursor-ring{display:none;} }
+
+/* ============================================================
+   LOADER
+============================================================ */
+#loader{
+  position:fixed;inset:0;z-index:10000;
+  background:var(--void);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:1.6rem;
+}
+#loader .mark{
+  font-family:var(--f-display);
+  font-style:italic;
+  font-size:clamp(2rem,6vw,3.4rem);
+  letter-spacing:.02em;
+  opacity:0;
+}
+.loader-bar{
+  width:min(280px,60vw);height:1px;
+  background:var(--line);
+  position:relative;overflow:hidden;
+}
+.loader-bar::after{
+  content:'';position:absolute;inset:0;
+  background:var(--paper);
+  transform:scaleX(0);
+  transform-origin:left;
+  animation:loadbar 1.8s var(--ease) forwards .15s;
+}
+@keyframes loadbar{to{transform:scaleX(1);}}
+.loader-pct{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.2em;color:var(--smoke);}
+
+/* ============================================================
+   GEM MOTIF (signature element)
+============================================================ */
+.gem-mark{display:block;}
+.gem-mark path,.gem-mark line{
+  fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke;
+}
+.bg-gem{
+  position:absolute;pointer-events:none;opacity:.06;color:var(--paper);
+  animation:gemspin 60s linear infinite;
+}
+@keyframes gemspin{to{transform:rotate(360deg);}}
+
+/* ============================================================
+   NAV
+============================================================ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:1.6rem 0;
+  transition:padding .4s var(--ease), background .4s var(--ease), border-color .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+#nav.scrolled{
+  padding:1rem 0;
+  background:rgba(10,10,9,.78);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--line-soft);
+}
+#nav .wrap{display:flex;align-items:center;justify-content:space-between;}
+.logo{
+  font-family:var(--f-display);font-style:italic;font-weight:600;
+  font-size:1.4rem;letter-spacing:.02em;
+}
+.nav-links{display:flex;gap:2.4rem;}
+.nav-links a{
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:500;color:var(--smoke);position:relative;padding-bottom:4px;
+  transition:color .3s;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:var(--paper);transform:scaleX(0);transform-origin:right;
+  transition:transform .45s var(--ease);
+}
+.nav-links a:hover{color:var(--paper);}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left;}
+
+.nav-right{display:flex;align-items:center;gap:1.6rem;}
+.lang-switch{
+  display:flex;gap:.4rem;font-family:var(--f-mono);font-size:.72rem;
+  letter-spacing:.1em;border:1px solid var(--line);padding:.35rem .5rem;
+}
+.lang-switch button{padding:.15rem .5rem;color:var(--smoke-dim);transition:color .3s;}
+.lang-switch button.active{color:var(--paper);}
+.lang-switch span{color:var(--line);}
+.icon-btn{position:relative;width:22px;height:22px;display:flex;align-items:center;justify-content:center;}
+.icon-btn svg{width:19px;height:19px;stroke:var(--paper);fill:none;stroke-width:1.3;}
+#cart-count{
+  position:absolute;top:-7px;right:-9px;
+  font-family:var(--f-mono);font-size:.6rem;
+  background:var(--paper);color:var(--void);
+  width:15px;height:15px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.burger{display:none;width:26px;height:16px;position:relative;}
+.burger span{position:absolute;left:0;right:0;height:1px;background:var(--paper);transition:transform .4s var(--ease),opacity .3s;}
+.burger span:nth-child(1){top:0;}
+.burger span:nth-child(2){top:50%;transform:translateY(-50%);}
+.burger span:nth-child(3){bottom:0;}
+
+/* Mobile menu */
+#mobile-menu{
+  position:fixed;inset:0;z-index:450;background:var(--void);
+  display:flex;flex-direction:column;justify-content:center;padding:2.4rem;
+  transform:translateY(-100%);transition:transform .6s var(--ease-2);
+}
+#mobile-menu.open{transform:translateY(0);}
+#mobile-menu a{font-family:var(--f-display);font-size:2.2rem;font-style:italic;display:block;margin-bottom:1rem;color:var(--smoke);transition:color .3s;}
+#mobile-menu a:hover{color:var(--paper);}
+
+/* ============================================================
+   HERO
+============================================================ */
+#hero{
+  position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden;padding-bottom:3.6rem;
+}
+#particle-canvas{position:absolute;inset:0;z-index:0;}
+.hero-vignette{
+  position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse at 50% 30%, rgba(10,10,9,0) 0%, rgba(10,10,9,.55) 62%, rgba(10,10,9,.96) 100%);
+}
+.hero-inner{position:relative;z-index:2;}
+.hero-top{padding-top:9rem;}
+.hero-title{
+  font-size:clamp(4.2rem,15vw,11.5rem);
+  text-transform:uppercase;
+  letter-spacing:-.02em;
+  display:flex;flex-wrap:wrap;
+}
+.hero-title .char{display:inline-block;transform:translateY(110%);}
+.hero-sub{
+  max-width:34ch;font-size:1.02rem;line-height:1.6;color:var(--smoke);
+  margin-top:1.6rem;font-weight:300;
+}
+.hero-cta-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.6rem;}
+.btn{
+  font-family:var(--f-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:1rem 1.9rem;border:1px solid var(--line);position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;gap:.6em;
+}
+.btn span{position:relative;z-index:2;transition:color .4s var(--ease-2);}
+.btn::before{
+  content:'';position:absolute;inset:0;background:var(--paper);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-2);z-index:1;
+}
+.btn:hover::before{transform:scaleX(1);}
+.btn:hover span{color:var(--void);}
+.btn.primary{background:var(--paper);color:var(--void);border-color:var(--paper);}
+.btn.primary span{color:var(--void);}
+.btn.primary::before{background:var(--void);}
+.btn.primary:hover span{color:var(--paper);}
+
+.hero-meta-row{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-top:5rem;padding-top:1.6rem;border-top:1px solid var(--line-soft);
+  font-family:var(--f-mono);font-size:.7rem;color:var(--smoke);letter-spacing:.08em;
+}
+.scroll-cue{display:flex;align-items:center;gap:.6rem;}
+.scroll-line{width:1px;height:34px;background:var(--line);position:relative;overflow:hidden;}
+.scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--paper);animation:scrolldrip 2.2s ease-in-out infinite;}
+@keyframes scrolldrip{0%{top:-100%;}60%{top:100%;}100%{top:100%;}}
+
+/* ============================================================
+   SECTION GENERIC
+============================================================ */
+section{position:relative;padding:8.5rem 0;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:4.5rem;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(2.6rem,5vw,4.6rem);}
+.section-num{font-family:var(--f-mono);font-size:.78rem;color:var(--smoke-dim);letter-spacing:.1em;}
+.section-tag{color:var(--smoke);max-width:32ch;font-weight:300;line-height:1.6;font-size:.96rem;}
+.divider{height:1px;background:var(--line-soft);width:100%;}
+
+/* ============================================================
+   ABOUT
+============================================================ */
+#about{background:var(--surface);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.about-text p{color:var(--smoke);line-height:1.85;font-weight:300;margin-bottom:1.4rem;font-size:1rem;}
+.about-text p:first-child{color:var(--paper);font-size:1.2rem;font-weight:300;line-height:1.7;}
+
+.timeline{margin-top:3rem;display:flex;flex-direction:column;}
+.tl-item{
+  display:grid;grid-template-columns:80px 1fr;gap:1.6rem;
+  padding:1.6rem 0;border-top:1px solid var(--line-soft);
+}
+.tl-item:last-child{border-bottom:1px solid var(--line-soft);}
+.tl-year{font-family:var(--f-mono);color:var(--accent);font-size:.85rem;padding-top:.15rem;}
+.tl-body h4{font-family:var(--f-body);font-weight:600;font-size:.98rem;margin-bottom:.35rem;}
+.tl-body p{color:var(--smoke);font-size:.88rem;font-weight:300;line-height:1.6;}
+
+.video-frame{
+  position:sticky;top:7rem;
+  border:1px solid var(--line);
+  padding:1.2rem;background:var(--void);
+}
+.video-frame .vf-label{
+  display:flex;justify-content:space-between;font-family:var(--f-mono);
+  font-size:.68rem;color:var(--smoke);letter-spacing:.1em;margin-bottom:1rem;
+}
+.video-embed{
+  position:relative;width:100%;aspect-ratio:16/9;background:var(--surface-2);
+  overflow:hidden;
+}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.video-fallback{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;
+  background:linear-gradient(160deg,#17160f,#0a0a09 70%);
+}
+.video-fallback .play{
+  width:64px;height:64px;border:1px solid var(--paper);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;transition:transform .4s var(--ease);
+}
+.video-fallback:hover .play{transform:scale(1.1);}
+.video-fallback .play svg{width:16px;height:16px;fill:var(--paper);}
+.video-fallback p{font-family:var(--f-mono);font-size:.7rem;color:var(--smoke);letter-spacing:.08em;text-align:center;padding:0 1.4rem;}
+.vf-caption{margin-top:1rem;font-size:.82rem;color:var(--smoke);font-weight:300;}
+
+/* ============================================================
+   MUSIC
+============================================================ */
+.music-tabs{display:flex;gap:2.2rem;margin-bottom:3rem;}
+.music-tab{
+  font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--smoke-dim);padding-bottom:.6rem;border-bottom:1px solid transparent;transition:.35s;
+}
+.music-tab.active{color:var(--paper);border-color:var(--paper);}
+.music-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;}
+.music-panel{display:none;}
+.music-panel.active{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;}
+
+.mcard{
+  position:relative;border:1px solid var(--line-soft);overflow:hidden;
+  aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.mcard .mc-bg{
+  position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(115deg, rgba(255,255,255,.035) 0 2px, transparent 2px 26px),
+    linear-gradient(155deg,var(--surface-2),var(--void) 75%);
+  transition:transform .8s var(--ease);
+}
+.mcard:hover .mc-bg{transform:scale(1.08);}
+.mcard::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(10,10,9,.92) 0%, rgba(10,10,9,.15) 55%, transparent 80%);
+}
+.mc-content{position:relative;z-index:2;padding:1.5rem;}
+.mc-tag{font-family:var(--f-mono);font-size:.66rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;}
+.mc-title{font-family:var(--f-display);font-size:1.5rem;margin-top:.5rem;font-weight:600;line-height:1.15;}
+.mc-meta{font-family:var(--f-mono);font-size:.68rem;color:var(--smoke);margin-top:.7rem;display:flex;justify-content:space-between;}
+.mc-play{
+  position:absolute;top:1.3rem;right:1.3rem;z-index:3;
+  width:40px;height:40px;border:1px solid rgba(243,241,234,.4);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(-6px);transition:.4s var(--ease);
+}
+.mcard:hover .mc-play{opacity:1;transform:translateY(0);}
+.mc-play svg{width:12px;height:12px;fill:var(--paper);}
+
+/* ============================================================
+   STORE
+============================================================ */
+#store{background:var(--surface);}
+.store-toolbar{display:flex;justify-content:space-between;align-items:center;gap:1.6rem;margin-bottom:3rem;flex-wrap:wrap;}
+.store-search{display:flex;align-items:center;gap:.7rem;border-bottom:1px solid var(--line);padding-bottom:.6rem;min-width:220px;}
+.store-search svg{width:15px;height:15px;stroke:var(--smoke);fill:none;stroke-width:1.4;}
+.store-search input{font-size:.85rem;flex:1;color:var(--paper);}
+.store-search input::placeholder{color:var(--smoke-dim);}
+.store-filters{display:flex;gap:.6rem;flex-wrap:wrap;}
+.filter-chip{
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.5rem 1rem;border:1px solid var(--line);color:var(--smoke);transition:.3s;
+}
+.filter-chip.active,.filter-chip:hover{color:var(--paper);border-color:var(--accent-dim);}
+
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);}
+.pcard{background:var(--surface);padding:0;display:flex;flex-direction:column;position:relative;}
+.pcard-img{
+  position:relative;aspect-ratio:4/5;overflow:hidden;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 1px, transparent 1px 22px),
+    linear-gradient(170deg,#16150f,#0a0a09 80%);
+}
+.pcard-img svg{position:absolute;inset:0;margin:auto;width:34%;opacity:.18;}
+.pcard-actions{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:.7rem;
+  background:rgba(10,10,9,.55);opacity:0;transition:opacity .4s var(--ease);
+}
+.pcard:hover .pcard-actions{opacity:1;}
+.pcard-actions button{
+  width:42px;height:42px;border:1px solid var(--paper);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--void);
+  transition:transform .35s var(--ease), background .3s;
+}
+.pcard-actions button:hover{transform:translateY(-4px);background:var(--paper);}
+.pcard-actions button:hover svg{stroke:var(--void);fill:var(--void);}
+.pcard-actions svg{width:16px;height:16px;stroke:var(--paper);fill:none;stroke-width:1.3;transition:.3s;}
+.pcard-body{padding:1.4rem 1.5rem 1.7rem;}
+.pcard-cat{font-family:var(--f-mono);font-size:.64rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;}
+.pcard-title{font-family:var(--f-display);font-size:1.25rem;margin-top:.5rem;}
+.pcard-desc{font-size:.82rem;color:var(--smoke);font-weight:300;margin-top:.5rem;line-height:1.55;}
+.pcard-row{display:flex;justify-content:space-between;align-items:center;margin-top:1.1rem;}
+.pcard-price{font-family:var(--f-mono);font-size:.9rem;}
+.pcard-add{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);border-bottom:1px solid var(--line);padding-bottom:2px;transition:.3s;}
+.pcard-add:hover{color:var(--paper);border-color:var(--paper);}
+
+/* Cart drawer */
+#cart-overlay{position:fixed;inset:0;background:rgba(10,10,9,.6);backdrop-filter:blur(4px);z-index:800;opacity:0;pointer-events:none;transition:opacity .4s var(--ease);}
+#cart-overlay.open{opacity:1;pointer-events:auto;}
+#cart-drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(440px,92vw);z-index:900;
+  background:var(--surface);border-left:1px solid var(--line);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .55s var(--ease-2);
+}
+#cart-drawer.open{transform:translateX(0);}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:1.8rem;border-bottom:1px solid var(--line-soft);}
+.cart-head h3{font-family:var(--f-display);font-size:1.4rem;font-style:italic;}
+.cart-close{width:30px;height:30px;display:flex;align-items:center;justify-content:center;}
+.cart-close svg{width:16px;height:16px;stroke:var(--paper);stroke-width:1.3;}
+.cart-items{flex:1;overflow-y:auto;padding:1.2rem 1.8rem;}
+.cart-empty{color:var(--smoke);font-size:.85rem;padding:2rem 0;text-align:center;font-family:var(--f-mono);}
+.cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line-soft);align-items:center;}
+.cart-thumb{width:64px;height:76px;background:linear-gradient(160deg,#1b1a13,#0a0a09);border:1px solid var(--line-soft);}
+.cart-item h5{font-size:.88rem;font-weight:500;}
+.cart-item span{font-family:var(--f-mono);font-size:.72rem;color:var(--smoke);}
+.cart-remove{font-family:var(--f-mono);font-size:.65rem;color:var(--smoke-dim);margin-top:.3rem;letter-spacing:.05em;}
+.cart-remove:hover{color:var(--paper);}
+.cart-foot{padding:1.8rem;border-top:1px solid var(--line-soft);}
+.cart-total-row{display:flex;justify-content:space-between;font-family:var(--f-mono);margin-bottom:1.2rem;font-size:.9rem;}
+
+/* Quick view modal */
+#qv-overlay{position:fixed;inset:0;background:rgba(10,10,9,.72);backdrop-filter:blur(6px);z-index:850;opacity:0;pointer-events:none;transition:opacity .4s var(--ease);display:flex;align-items:center;justify-content:center;padding:2rem;}
+#qv-overlay.open{opacity:1;pointer-events:auto;}
+#qv-modal{
+  width:min(760px,100%);background:var(--surface);border:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;
+  transform:translateY(20px) scale(.98);opacity:0;transition:.5s var(--ease);
+}
+#qv-overlay.open #qv-modal{transform:translateY(0) scale(1);opacity:1;}
+.qv-img{aspect-ratio:4/5;background:linear-gradient(160deg,#17160f,#0a0a09 80%);position:relative;}
+.qv-img svg{position:absolute;inset:0;margin:auto;width:36%;opacity:.18;}
+.qv-body{padding:2.4rem;display:flex;flex-direction:column;}
+.qv-body .pcard-cat{margin-bottom:.6rem;}
+.qv-body h3{font-size:1.7rem;margin-bottom:.8rem;}
+.qv-body p{color:var(--smoke);font-size:.88rem;line-height:1.7;font-weight:300;margin-bottom:1.4rem;}
+.qv-price{font-family:var(--f-mono);font-size:1.1rem;margin-bottom:1.6rem;}
+.qv-close{position:absolute;top:1.2rem;right:1.2rem;width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.qv-close svg{width:16px;height:16px;stroke:var(--paper);stroke-width:1.3;}
+
+/* Checkout demo */
+#checkout-overlay{position:fixed;inset:0;background:rgba(10,10,9,.78);backdrop-filter:blur(8px);z-index:950;opacity:0;pointer-events:none;transition:opacity .4s var(--ease);display:flex;align-items:center;justify-content:center;padding:2rem;}
+#checkout-overlay.open{opacity:1;pointer-events:auto;}
+#checkout-modal{width:min(420px,100%);background:var(--surface);border:1px solid var(--line);padding:2.4rem;text-align:center;}
+#checkout-modal .gem-mark{margin:0 auto 1.4rem;color:var(--accent);width:34px;height:34px;}
+#checkout-modal h3{font-size:1.5rem;margin-bottom:.8rem;}
+#checkout-modal p{color:var(--smoke);font-size:.85rem;line-height:1.6;margin-bottom:1.8rem;}
+
+/* ============================================================
+   GALLERY
+============================================================ */
+.masonry{column-count:3;column-gap:1rem;}
+.g-item{
+  break-inside:avoid;margin-bottom:1rem;position:relative;overflow:hidden;
+  cursor:none;
+}
+.g-item .g-ph{
+  width:100%;display:block;
+  background:
+    repeating-linear-gradient(125deg, rgba(255,255,255,.035) 0 2px, transparent 2px 24px),
+    linear-gradient(165deg,var(--surface-2),var(--void) 80%);
+  transition:transform 1s var(--ease);
+}
+.g-item:hover .g-ph{transform:scale(1.06);}
+.g-item::after{content:'';position:absolute;inset:0;background:rgba(10,10,9,.15);opacity:0;transition:opacity .4s;}
+.g-item:hover::after{opacity:1;}
+.g-item .g-cap{
+  position:absolute;left:1rem;bottom:1rem;font-family:var(--f-mono);font-size:.66rem;
+  letter-spacing:.08em;color:var(--paper);opacity:0;transform:translateY(8px);transition:.4s var(--ease);
+}
+.g-item:hover .g-cap{opacity:1;transform:translateY(0);}
+
+#lightbox{position:fixed;inset:0;background:rgba(8,8,7,.95);z-index:970;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;padding:3rem;}
+#lightbox.open{opacity:1;pointer-events:auto;}
+#lightbox .lb-frame{width:min(640px,100%);aspect-ratio:3/4;background:linear-gradient(165deg,var(--surface-2),var(--void) 80%);position:relative;border:1px solid var(--line);}
+#lightbox .lb-close{position:absolute;top:2rem;right:2rem;width:34px;height:34px;display:flex;align-items:center;justify-content:center;}
+#lightbox .lb-close svg{width:18px;height:18px;stroke:var(--paper);stroke-width:1.2;}
+
+/* ============================================================
+   SOCIAL
+============================================================ */
+#social{background:var(--surface);}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+.social-card{
+  border:1px solid var(--line);padding:2.6rem;position:relative;overflow:hidden;
+  transition:border-color .4s;
+}
+.social-card:hover{border-color:var(--accent-dim);}
+.social-card .sc-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.sc-icon{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.sc-icon svg{width:17px;height:17px;stroke:var(--paper);fill:none;stroke-width:1.3;}
+.sc-count{font-family:var(--f-mono);text-align:right;}
+.sc-count .num{font-size:1.6rem;display:block;}
+.sc-count .lbl{font-size:.62rem;color:var(--smoke);letter-spacing:.1em;text-transform:uppercase;}
+.social-card h4{font-family:var(--f-display);font-size:1.9rem;margin-top:2rem;}
+.social-card p{color:var(--smoke);font-size:.85rem;margin-top:.5rem;font-weight:300;}
+.social-card .sc-cta{margin-top:1.8rem;display:inline-flex;align-items:center;gap:.5rem;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;}
+.social-card .sc-cta svg{width:12px;height:12px;stroke:var(--paper);transition:transform .35s var(--ease);}
+.social-card:hover .sc-cta svg{transform:translate(3px,-3px);}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;}
+.field{position:relative;margin-bottom:1.9rem;}
+.field label{
+  position:absolute;left:0;top:.9rem;font-size:.92rem;color:var(--smoke-dim);
+  transition:.3s var(--ease);pointer-events:none;font-weight:300;
+}
+.field input,.field textarea{
+  width:100%;padding:.9rem 0;border-bottom:1px solid var(--line);font-size:.95rem;font-weight:300;
+}
+.field textarea{resize:none;min-height:90px;}
+.field input:focus + label,.field input:not(:placeholder-shown) + label,
+.field textarea:focus + label,.field textarea:not(:placeholder-shown) + label{
+  top:-.7rem;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+}
+.field .underline{position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--paper);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
+.field input:focus ~ .underline,.field textarea:focus ~ .underline{transform:scaleX(1);}
+
+.map-ph{
+  aspect-ratio:4/3;border:1px solid var(--line);position:relative;overflow:hidden;
+  background:
+    linear-gradient(var(--line-soft) 1px, transparent 1px) 0 0/40px 40px,
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px) 0 0/40px 40px,
+    var(--surface);
+}
+.map-ph::before{
+  content:'';position:absolute;left:50%;top:50%;width:10px;height:10px;
+  border-radius:50%;background:var(--paper);transform:translate(-50%,-50%);
+  box-shadow:0 0 0 8px rgba(243,241,234,.08);
+}
+.map-ph .map-tag{position:absolute;left:1.2rem;bottom:1.2rem;font-family:var(--f-mono);font-size:.68rem;color:var(--smoke);letter-spacing:.08em;}
+
+.newsletter{margin-top:2.4rem;border:1px solid var(--line);padding:2rem;}
+.newsletter h4{font-family:var(--f-display);font-size:1.3rem;font-style:italic;margin-bottom:.6rem;}
+.newsletter p{color:var(--smoke);font-size:.82rem;margin-bottom:1.4rem;font-weight:300;}
+.nl-row{display:flex;border-bottom:1px solid var(--line);}
+.nl-row input{flex:1;padding:.7rem 0;font-size:.85rem;}
+.nl-row button{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;}
+
+.form-msg{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);margin-top:1rem;height:1em;}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer{padding:5rem 0 2.4rem;border-top:1px solid var(--line-soft);}
+.footer-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;}
+.footer-brand .logo{display:inline-block;margin-bottom:1.2rem;}
+.footer-brand p{color:var(--smoke);font-size:.85rem;max-width:32ch;font-weight:300;line-height:1.6;}
+.footer-col h5{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--smoke-dim);margin-bottom:1.2rem;}
+.footer-col a{display:block;font-size:.86rem;color:var(--smoke);margin-bottom:.75rem;transition:.3s;}
+.footer-col a:hover{color:var(--paper);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--line-soft);flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{font-family:var(--f-mono);font-size:.68rem;color:var(--smoke-dim);letter-spacing:.05em;}
+
+/* progress */
+#scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--paper);z-index:600;width:0%;}
+
+/* toast */
+#toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--paper);color:var(--void);font-family:var(--f-mono);font-size:.74rem;
+  letter-spacing:.05em;padding:.9rem 1.6rem;z-index:1100;opacity:0;transition:.4s var(--ease);pointer-events:none;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:1024px){
+  .about-grid{grid-template-columns:1fr;}
+  .video-frame{position:static;}
+  .music-grid,.music-panel.active{grid-template-columns:repeat(2,1fr);}
+  .product-grid{grid-template-columns:repeat(2,1fr);}
+  .social-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:3rem;}
+  .footer-top{grid-template-columns:1fr 1fr;row-gap:2.4rem;}
+  .masonry{column-count:2;}
+}
+@media (max-width:720px){
+  body{cursor:auto;}
+  .cursor-dot,.cursor-ring{display:none;}
+  .nav-links{display:none;}
+  .burger{display:block;}
+  section{padding:5.5rem 0;}
+  .music-grid,.music-panel.active{grid-template-columns:1fr;}
+  .product-grid{grid-template-columns:1fr;}
+  .masonry{column-count:1;}
+  .hero-meta-row{flex-direction:column;align-items:flex-start;gap:1.4rem;}
+  .footer-top{grid-template-columns:1fr;}
+  .qv-modal,#qv-modal{grid-template-columns:1fr;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+
+/* language visibility */
+[data-cz]{display:none;}
+html[data-lang="cz"] [data-en]{display:none;}
+html[data-lang="cz"] [data-cz]{display:inline;}
+html[data-lang="cz"] [data-cz].block{display:block;}
+[data-en].block{display:block;}
+</style>
+</head>
+<body>
+
+<!-- ================= CURSOR ================= -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+  <div class="mark">ANDRÉE</div>
+  <div class="loader-bar"></div>
+  <div class="loader-pct" id="loader-pct">00 / 100</div>
+</div>
+
+<div id="scroll-progress"></div>
+
+<!-- ================= NAV ================= -->
+<nav id="nav">
+  <div class="wrap">
+    <a href="#hero" class="logo">ANDRÉE</a>
+    <ul class="nav-links">
+      <li><a href="#hero" data-en="Home" data-cz="Domů">Home</a></li>
+      <li><a href="#store" data-en="Store" data-cz="Obchod">Store</a></li>
+      <li><a href="#music" data-en="Music" data-cz="Hudba">Music</a></li>
+      <li><a href="#about" data-en="About" data-cz="O mně">About</a></li>
+      <li><a href="#gallery" data-en="Gallery" data-cz="Galerie">Gallery</a></li>
+      <li><a href="#contact" data-en="Contact" data-cz="Kontakt">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switch">
+        <button id="lang-en" class="active" data-set="en">EN</button>
+        <span>/</span>
+        <button id="lang-cz" data-set="cz">CZ</button>
+      </div>
+      <button class="icon-btn" id="cart-btn" aria-label="Cart">
+        <svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M3 3h2l1 3" stroke-linecap="round"/></svg>
+        <span id="cart-count">0</span>
+      </button>
+      <div class="burger" id="burger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <a href="#hero" data-en="Home" data-cz="Domů">Home</a>
+  <a href="#store" data-en="Store" data-cz="Obchod">Store</a>
+  <a href="#music" data-en="Music" data-cz="Hudba">Music</a>
+  <a href="#about" data-en="About" data-cz="O mně">About</a>
+  <a href="#gallery" data-en="Gallery" data-cz="Galerie">Gallery</a>
+  <a href="#contact" data-en="Contact" data-cz="Kontakt">Contact</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header id="hero">
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-vignette"></div>
+  <svg class="bg-gem" style="width:70vw;height:70vw;left:15vw;top:-10vw" viewBox="0 0 200 200"><path d="M100 10 L170 60 L145 190 L55 190 L30 60 Z"/><path d="M100 10 L100 190"/><path d="M30 60 L170 60"/><path d="M55 190 L100 100 L145 190"/><path d="M100 10 L55 190"/><path d="M100 10 L145 190"/></svg>
+
+  <div class="hero-inner wrap">
+    <div class="hero-top">
+      <div class="eyebrow reveal" id="hero-eyebrow" data-en="Underground Electronic // Artist" data-cz="Podzemní elektronická hudba // Umělec">Underground Electronic // Artist</div>
+      <h1 class="hero-title" id="hero-title">ANDRÉE</h1>
+      <p class="hero-sub reveal" id="hero-sub" data-en="Dark sound. Precise vision. Every set a rough gem, cut live in front of the room." data-cz="Temný zvuk. Přesná vize. Každý set je surový drahokam, broušený naživo přímo před publikem.">Dark sound. Precise vision. Every set a rough gem, cut live in front of the room.</p>
+      <div class="hero-cta-row reveal" id="hero-cta">
+        <a href="#gallery" class="btn primary"><span data-en="Explore" data-cz="Prozkoumat">Explore</span></a>
+        <a href="#store" class="btn"><span data-en="Shop" data-cz="Obchod">Shop</span></a>
+        <a href="#about" class="btn"><span data-en="Latest Set" data-cz="Poslední Set">Latest Set</span></a>
+      </div>
+    </div>
+    <div class="hero-meta-row">
+      <div data-en="20GEMS 02 // Recorded live 7.12.25" data-cz="20GEMS 02 // Nahráno naživo 7.12.25">20GEMS 02 // Recorded live 7.12.25</div>
+      <div class="scroll-cue">
+        <span data-en="Scroll" data-cz="Scroll">Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-en="About" data-cz="O mně">About</div>
+        <h2 class="reveal-up">About <span class="italic">Andrée</span></h2>
+      </div>
+      <div class="section-num">01 / 06</div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p data-en="ANDRÉE builds rooms out of low frequencies — sets composed for dark spaces, close speakers and people who came to disappear for a while." data-cz="ANDRÉE staví místnosti z nízkých frekvencí — sety skládané pro temné prostory, blízké reprosoustavy a lidi, kteří přišli na chvíli zmizet.">ANDRÉE builds rooms out of low frequencies — sets composed for dark spaces, close speakers and people who came to disappear for a while.</p>
+        <p data-en="Founder of the DRKSD collective, based between Prague's basements and warehouse floors, ANDRÉE treats every performance as a single unrepeatable cut — no two sets share a tracklist." data-cz="Zakladatel/ka kolektivu DRKSD, pohybující se mezi pražskými sklepy a industriálními halami, přistupuje ANDRÉE ke každému vystoupení jako k jedinečnému a neopakovatelnému řezu — žádné dva sety nesdílí stejný tracklist.">Founder of the DRKSD collective, based between Prague's basements and warehouse floors, ANDRÉE treats every performance as a single unrepeatable cut — no two sets share a tracklist.</p>
+        <p data-en="The 20GEMS series documents this philosophy: one set, one location, one live recording — a rough stone taken in, and a finished gem released." data-cz="Série 20GEMS dokumentuje tuto filozofii: jeden set, jedno místo, jeden živý záznam — vstupuje surový kámen, vychází hotový drahokam.">The 20GEMS series documents this philosophy: one set, one location, one live recording — a rough stone taken in, and a finished gem released.</p>
+
+        <div class="timeline">
+          <div class="tl-item reveal-up">
+            <div class="tl-year">2019</div>
+            <div class="tl-body">
+              <h4 data-en="First cut" data-cz="První řez">First cut</h4>
+              <p data-en="First set recorded in a Prague basement, shared with twelve people." data-cz="První set nahraný v pražském sklepě, se kterým se podělilo dvanáct lidí.">First set recorded in a Prague basement, shared with twelve people.</p>
+            </div>
+          </div>
+          <div class="tl-item reveal-up">
+            <div class="tl-year">2021</div>
+            <div class="tl-body">
+              <h4 data-en="DRKSD founded" data-cz="Založení DRKSD">DRKSD founded</h4>
+              <p data-en="A collective built as a home for sound without compromise." data-cz="Kolektiv vybudovaný jako domov pro zvuk bez kompromisů.">A collective built as a home for sound without compromise.</p>
+            </div>
+          </div>
+          <div class="tl-item reveal-up">
+            <div class="tl-year">2023</div>
+            <div class="tl-body">
+              <h4 data-en="20GEMS begins" data-cz="Začátek 20GEMS">20GEMS begins</h4>
+              <p data-en="A recording series: one set, one location, one live cut, no edits." data-cz="Nahrávací série: jeden set, jedno místo, jeden živý řez, bez úprav.">A recording series: one set, one location, one live cut, no edits.</p>
+            </div>
+          </div>
+          <div class="tl-item reveal-up">
+            <div class="tl-year">2025</div>
+            <div class="tl-body">
+              <h4 data-en="20GEMS 02" data-cz="20GEMS 02">20GEMS 02</h4>
+              <p data-en="Recorded live, 7.12 — the newest gem in the series." data-cz="Nahráno naživo, 7.12 — nejnovější drahokam série.">Recorded live, 7.12 — the newest gem in the series.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-frame reveal-up">
+        <div class="vf-label">
+          <span data-en="Now Playing" data-cz="Právě hraje">Now Playing</span>
+          <span>DRKSD // 20GEMS</span>
+        </div>
+        <div class="video-embed">
+          <!--
+            To go live: replace the .video-fallback block below with:
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="ANDRÉE // 20GEMS 02 // 7.12.25 // DJ SET"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+            Paste the real video ID from https://www.youtube.com/@ANDREEDRKSD once published.
+          -->
+          <a class="video-fallback" href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">
+            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <p data-en="ANDRÉE // 20GEMS 02 // 7.12.25 // DJ SET — watch on YouTube" data-cz="ANDRÉE // 20GEMS 02 // 7.12.25 // DJ SET — sledovat na YouTube">ANDRÉE // 20GEMS 02 // 7.12.25 // DJ SET — watch on YouTube</p>
+          </a>
+        </div>
+        <p class="vf-caption" data-en="Live recording, single take, no overdubs." data-cz="Živá nahrávka, jeden záběr, bez dodatečných úprav.">Live recording, single take, no overdubs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MUSIC ================= -->
+<section id="music">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-en="Music" data-cz="Hudba">Music</div>
+        <h2>The <span class="italic">Sets</span></h2>
+      </div>
+      <div class="section-num">02 / 06</div>
+    </div>
+
+    <div class="music-tabs">
+      <button class="music-tab active" data-tab="latest" data-en="Latest Sets" data-cz="Poslední Sety">Latest Sets</button>
+      <button class="music-tab" data-tab="upcoming" data-en="Upcoming Sets" data-cz="Nadcházející Sety">Upcoming Sets</button>
+      <button class="music-tab" data-tab="featured" data-en="Featured Videos" data-cz="Vybraná Videa">Featured Videos</button>
+    </div>
+
+    <div class="music-panel active" data-panel="latest">
+      <div class="mcard reveal-up"><div class="mc-bg"></div><div class="mc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="mc-content"><div class="mc-tag">20GEMS 02</div><div class="mc-title">DRKSD // Live</div><div class="mc-meta"><span>7.12.25</span><span>68:00</span></div></div></div>
+      <div class="mcard reveal-up"><div class="mc-bg"></div><div class="mc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="mc-content"><div class="mc-tag">20GEMS 01</div><div class="mc-title" data-en="Warehouse Cut" data-cz="Řez z haly">Warehouse Cut</div><div class="mc-meta"><span>3.05.24</span><span>74:00</span></div></div></div>
+      <div class="mcard reveal-up"><div class="mc-bg"></div><div class="mc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="mc-content"><div class="mc-tag" data-en="RADIO" data-cz="RÁDIO">RADIO</div><div class="mc-title" data-en="Basement Session" data-cz="Sklepní Session">Basement Session</div><div class="mc-meta"><span>19.11.23</span><span>52:00</span></div></div></div>
+    </div>
+
+    <div class="music-panel" data-panel="upcoming">
+      <div class="mcard reveal-up"><div class="mc-bg"></div>
+        <div class="mc-content"><div class="mc-tag" data-en="LIVE" data-cz="ŽIVĚ">LIVE</div><div class="mc-title" data-en="20GEMS 03" data-cz="20GEMS 03">20GEMS 03</div><div class="mc-meta"><span data-en="Location TBA" data-cz="Místo bude upřesněno">Location TBA</span><span>Q4 2026</span></div></div></div>
+      <div class="mcard reveal-up"><div class="mc-bg"></div>
+        <div class="mc-content"><div class="mc-tag" data-en="B2B" data-cz="B2B">B2B</div><div class="mc-title" data-en="DRKSD Night" data-cz="DRKSD Noc">DRKSD Night</div><div class="mc-meta"><span>Praha</span><span>Q1 2027</span></div></div></div>
+      <div class="mcard reveal-up"><div class="mc-bg"></div>
+        <div class="mc-content"><div class="mc-tag" data-en="CLOSING SET" data-cz="ZÁVĚREČNÝ SET">CLOSING SET</div><div class="mc-title" data-en="Open Air" data-cz="Open Air">Open Air</div><div class="mc-meta"><span data-en="Announced soon" data-cz="Brzy oznámeno">Announced soon</span><span>2027</span></div></div></div>
+    </div>
+
+    <div class="music-panel" data-panel="featured">
+      <div class="mcard reveal-up"><div class="mc-bg"></div><div class="mc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="mc-content"><div class="mc-tag" data-en="STUDIO" data-cz="STUDIO">STUDIO</div><div class="mc-title" data-en="Behind the Rig" data-cz="Za pultem">Behind the Rig</div><div class="mc-meta"><span>YouTube</span><span>12:40</span></div></div></div>
+      <div class="mcard reveal-up"><div class="mc-bg"></div><div class="mc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="mc-content"><div class="mc-tag" data-en="INTERVIEW" data-cz="ROZHOVOR">INTERVIEW</div><div class="mc-title" data-en="On 20GEMS" data-cz="O 20GEMS">On 20GEMS</div><div class="mc-meta"><span>YouTube</span><span>18:05</span></div></div></div>
+      <div class="mcard reveal-up"><div class="mc-bg"></div><div class="mc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="mc-content"><div class="mc-tag" data-en="AFTERMOVIE" data-cz="AFTERMOVIE">AFTERMOVIE</div><div class="mc-title" data-en="DRKSD Night I" data-cz="DRKSD Noc I">DRKSD Night I</div><div class="mc-meta"><span>YouTube</span><span>04:22</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORE ================= -->
+<section id="store">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-en="Store" data-cz="Obchod">Store</div>
+        <h2 data-en="Objects, not merch" data-cz="Předměty, ne merch"><span class="italic">Objects</span>, not merch</h2>
+      </div>
+      <div class="section-num">03 / 06</div>
+    </div>
+
+    <div class="store-toolbar">
+      <div class="store-filters">
+        <button class="filter-chip active" data-filter="all" data-en="All" data-cz="Vše">All</button>
+        <button class="filter-chip" data-filter="apparel" data-en="Apparel" data-cz="Oblečení">Apparel</button>
+        <button class="filter-chip" data-filter="vinyl" data-en="Vinyl" data-cz="Vinyl">Vinyl</button>
+        <button class="filter-chip" data-filter="accessories" data-en="Accessories" data-cz="Doplňky">Accessories</button>
+      </div>
+      <div class="store-search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="store-search-input" data-en-ph="Search products" data-cz-ph="Hledat produkty" placeholder="Search products">
+      </div>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+      <!-- Product 1 -->
+      <article class="pcard" data-cat="apparel" data-name="Product One product one tričko"
+        data-title-en="Product One" data-title-cz="Produkt Jedna"
+        data-desc-en="Heavyweight cotton tee, oversized cut, tonal DRKSD print." data-desc-cz="Silná bavlněná trička, oversized střih, tónovaný potisk DRKSD.">
+        <div class="pcard-img">
+          <svg viewBox="0 0 200 200"><path d="M100 10 L170 60 L145 190 L55 190 L30 60 Z"/><path d="M100 10 L100 190"/><path d="M30 60 L170 60"/></svg>
+          <div class="pcard-actions">
+            <button class="qv-trigger" aria-label="Quick view"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="wish-trigger" aria-label="Wishlist"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.5-8.6C.7 8.8 2.2 5 6 5c2 0 3.3 1 4 2.2C10.7 6 12 5 14 5c3.8 0 5.3 3.8 3.5 7.4C19 16.6 12 21 12 21z"/></svg></button>
+          </div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-cat" data-en="Apparel" data-cz="Oblečení">Apparel</div>
+          <h3 class="pcard-title" data-en="Product One" data-cz="Produkt Jedna">Product One</h3>
+          <p class="pcard-desc" data-en="Heavyweight cotton tee, oversized cut, tonal DRKSD print." data-cz="Silná bavlněná trička, oversized střih, tónovaný potisk DRKSD.">Heavyweight cotton tee, oversized cut, tonal DRKSD print.</p>
+          <div class="pcard-row">
+            <span class="pcard-price">0.00 CZK</span>
+            <button class="pcard-add add-to-cart" data-en="Add to Cart" data-cz="Do košíku">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="pcard" data-cat="vinyl" data-name="Product Two produkt dva vinyl"
+        data-title-en="Product Two" data-title-cz="Produkt Dva"
+        data-desc-en="20GEMS 02, limited pressing, matte black sleeve, numbered." data-desc-cz="20GEMS 02, limitovaný lisovaný vinyl, matný černý obal, číslovaný.">
+        <div class="pcard-img">
+          <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="20"/><path d="M100 10 L100 190 M10 100 L190 100" opacity=".5"/></svg>
+          <div class="pcard-actions">
+            <button class="qv-trigger" aria-label="Quick view"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="wish-trigger" aria-label="Wishlist"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.5-8.6C.7 8.8 2.2 5 6 5c2 0 3.3 1 4 2.2C10.7 6 12 5 14 5c3.8 0 5.3 3.8 3.5 7.4C19 16.6 12 21 12 21z"/></svg></button>
+          </div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-cat" data-en="Vinyl" data-cz="Vinyl">Vinyl</div>
+          <h3 class="pcard-title" data-en="Product Two" data-cz="Produkt Dva">Product Two</h3>
+          <p class="pcard-desc" data-en="20GEMS 02, limited pressing, matte black sleeve, numbered." data-cz="20GEMS 02, limitovaný lisovaný vinyl, matný černý obal, číslovaný.">20GEMS 02, limited pressing, matte black sleeve, numbered.</p>
+          <div class="pcard-row">
+            <span class="pcard-price">0.00 CZK</span>
+            <button class="pcard-add add-to-cart" data-en="Add to Cart" data-cz="Do košíku">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="pcard" data-cat="accessories" data-name="Product Three produkt tri doplnky"
+        data-title-en="Product Three" data-title-cz="Produkt Tři"
+        data-desc-en="Faceted enamel pin, gem motif, gunmetal finish." data-desc-cz="Fasetovaný smaltovaný odznak, motiv drahokamu, kovová povrchová úprava.">
+        <div class="pcard-img">
+          <svg viewBox="0 0 200 200"><path d="M100 20 L160 70 L140 170 L60 170 L40 70 Z"/><path d="M100 20 L70 70 L100 100 L130 70 Z"/><path d="M40 70 L160 70"/></svg>
+          <div class="pcard-actions">
+            <button class="qv-trigger" aria-label="Quick view"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="wish-trigger" aria-label="Wishlist"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.5-8.6C.7 8.8 2.2 5 6 5c2 0 3.3 1 4 2.2C10.7 6 12 5 14 5c3.8 0 5.3 3.8 3.5 7.4C19 16.6 12 21 12 21z"/></svg></button>
+          </div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-cat" data-en="Accessories" data-cz="Doplňky">Accessories</div>
+          <h3 class="pcard-title" data-en="Product Three" data-cz="Produkt Tři">Product Three</h3>
+          <p class="pcard-desc" data-en="Faceted enamel pin, gem motif, gunmetal finish." data-cz="Fasetovaný smaltovaný odznak, motiv drahokamu, kovová povrchová úprava.">Faceted enamel pin, gem motif, gunmetal finish.</p>
+          <div class="pcard-row">
+            <span class="pcard-price">0.00 CZK</span>
+            <button class="pcard-add add-to-cart" data-en="Add to Cart" data-cz="Do košíku">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-en="Gallery" data-cz="Galerie">Gallery</div>
+        <h2 data-en="Frames from the room" data-cz="Záběry z místnosti"><span class="italic">Frames</span> from the room</h2>
+      </div>
+      <div class="section-num">04 / 06</div>
+    </div>
+
+    <div class="masonry" id="masonry">
+      <div class="g-item reveal-up"><div class="g-ph" style="height:340px"></div><span class="g-cap" data-en="20GEMS 02 // Set" data-cz="20GEMS 02 // Set">20GEMS 02 // Set</span></div>
+      <div class="g-item reveal-up"><div class="g-ph" style="height:220px"></div><span class="g-cap" data-en="Warehouse // Crowd" data-cz="Hala // Publikum">Warehouse // Crowd</span></div>
+      <div class="g-item reveal-up"><div class="g-ph" style="height:400px"></div><span class="g-cap" data-en="Rig // Close" data-cz="Pult // Detail">Rig // Close</span></div>
+      <div class="g-item reveal-up"><div class="g-ph" style="height:260px"></div><span class="g-cap" data-en="DRKSD // Night I" data-cz="DRKSD // Noc I">DRKSD // Night I</span></div>
+      <div class="g-item reveal-up"><div class="g-ph" style="height:300px"></div><span class="g-cap" data-en="Basement // Session" data-cz="Sklep // Session">Basement // Session</span></div>
+      <div class="g-item reveal-up"><div class="g-ph" style="height:230px"></div><span class="g-cap" data-en="Backstage" data-cz="Zákulisí">Backstage</span></div>
+      <div class="g-item reveal-up"><div class="g-ph" style="height:360px"></div><span class="g-cap" data-en="20GEMS 01 // Set" data-cz="20GEMS 01 // Set">20GEMS 01 // Set</span></div>
+      <div class="g-item reveal-up"><div class="g-ph" style="height:250px"></div><span class="g-cap" data-en="Open Air // Test" data-cz="Open Air // Zkouška">Open Air // Test</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOCIAL ================= -->
+<section id="social">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-en="Follow" data-cz="Sledujte">Follow</div>
+        <h2 data-en="Stay close" data-cz="Zůstaňte blízko"><span class="italic">Stay</span> close</h2>
+      </div>
+      <div class="section-num">05 / 06</div>
+    </div>
+
+    <div class="social-grid">
+      <a class="social-card reveal-up" href="https://www.instagram.com/andreedrksd/" target="_blank" rel="noopener">
+        <div class="sc-top">
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+          <div class="sc-count"><span class="num" data-count="18400">0</span><span class="lbl" data-en="Followers" data-cz="Sledující">Followers</span></div>
+        </div>
+        <h4>Instagram</h4>
+        <p data-en="Behind the rig, tour frames, unreleased edits." data-cz="Za pultem, záběry z turné, nevydané střihy.">Behind the rig, tour frames, unreleased edits.</p>
+        <span class="sc-cta"><span data-en="View profile" data-cz="Zobrazit profil">View profile</span><svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+      </a>
+      <a class="social-card reveal-up" href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">
+        <div class="sc-top">
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l6 3-6 3z" fill="currentColor" stroke="none"/></svg></div>
+          <div class="sc-count"><span class="num" data-count="9200">0</span><span class="lbl" data-en="Subscribers" data-cz="Odběratelé">Subscribers</span></div>
+        </div>
+        <h4>YouTube</h4>
+        <p data-en="Full sets, aftermovies, the 20GEMS series." data-cz="Kompletní sety, aftermovies, série 20GEMS.">Full sets, aftermovies, the 20GEMS series.</p>
+        <span class="sc-cta"><span data-en="Watch channel" data-cz="Sledovat kanál">Watch channel</span><svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-en="Contact" data-cz="Kontakt">Contact</div>
+        <h2 data-en="Get in touch" data-cz="Ozvěte se"><span class="italic">Get</span> in touch</h2>
+      </div>
+      <div class="section-num">06 / 06</div>
+    </div>
+
+    <div class="contact-grid">
+      <form id="contact-form">
+        <div class="field">
+          <input type="text" id="cf-name" required placeholder=" ">
+          <label for="cf-name" data-en="Full name" data-cz="Celé jméno">Full name</label>
+          <div class="underline"></div>
+        </div>
+        <div class="field">
+          <input type="email" id="cf-email" required placeholder=" ">
+          <label for="cf-email" data-en="Email address" data-cz="E-mailová adresa">Email address</label>
+          <div class="underline"></div>
+        </div>
+        <div class="field">
+          <textarea id="cf-msg" required placeholder=" "></textarea>
+          <label for="cf-msg" data-en="Message" data-cz="Zpráva">Message</label>
+          <div class="underline"></div>
+        </div>
+        <button type="submit" class="btn primary"><span data-en="Send Message" data-cz="Odeslat zprávu">Send Message</span></button>
+        <div class="form-msg" id="contact-msg"></div>
+      </form>
+
+      <div>
+        <div class="map-ph">
+          <span class="map-tag" data-en="Prague, Czech Republic" data-cz="Praha, Česká republika">Prague, Czech Republic</span>
+        </div>
+        <div class="newsletter">
+          <h4 data-en="Join the list" data-cz="Přidejte se">Join the list</h4>
+          <p data-en="New sets, drops and shows — before anyone else." data-cz="Nové sety, novinky a koncerty — dřív, než kdokoliv jiný.">New sets, drops and shows — before anyone else.</p>
+          <div class="nl-row">
+            <input type="email" id="nl-email" data-en-ph="Your email" data-cz-ph="Váš e-mail" placeholder="Your email">
+            <button id="nl-submit" data-en="Subscribe" data-cz="Odebírat">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">ANDRÉE</span>
+        <p data-en="Dark electronic sound from the DRKSD collective. Sets, objects, and everything between." data-cz="Temný elektronický zvuk kolektivu DRKSD. Sety, předměty a vše mezi tím.">Dark electronic sound from the DRKSD collective. Sets, objects, and everything between.</p>
+      </div>
+      <div class="footer-col">
+        <h5 data-en="Navigate" data-cz="Navigace">Navigate</h5>
+        <a href="#hero" data-en="Home" data-cz="Domů">Home</a>
+        <a href="#store" data-en="Store" data-cz="Obchod">Store</a>
+        <a href="#music" data-en="Music" data-cz="Hudba">Music</a>
+        <a href="#about" data-en="About" data-cz="O mně">About</a>
+      </div>
+      <div class="footer-col">
+        <h5 data-en="More" data-cz="Více">More</h5>
+        <a href="#gallery" data-en="Gallery" data-cz="Galerie">Gallery</a>
+        <a href="#contact" data-en="Contact" data-cz="Kontakt">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5 data-en="Follow" data-cz="Sledujte">Follow</h5>
+        <a href="https://www.instagram.com/andreedrksd/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> ANDRÉE / DRKSD. <span data-en="All rights reserved." data-cz="Všechna práva vyhrazena.">All rights reserved.</span></p>
+      <div class="lang-switch">
+        <button class="lang-switch-footer active" data-set="en">EN</button>
+        <span>/</span>
+        <button class="lang-switch-footer" data-set="cz">CZ</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= CART DRAWER ================= -->
+<div id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-head">
+    <h3 data-en="Your Cart" data-cz="Váš košík">Your Cart</h3>
+    <button class="cart-close" id="cart-close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty" data-en="Your cart is empty." data-cz="Váš košík je prázdný.">Your cart is empty.</div>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span data-en="Total" data-cz="Celkem">Total</span><span id="cart-total">0.00 CZK</span></div>
+    <button class="btn primary" style="width:100%;justify-content:center" id="checkout-btn"><span data-en="Checkout" data-cz="K pokladně">Checkout</span></button>
+  </div>
+</aside>
+
+<!-- ================= QUICK VIEW ================= -->
+<div id="qv-overlay">
+  <div id="qv-modal">
+    <div class="qv-img" id="qv-img"></div>
+    <div class="qv-body">
+      <button class="qv-close" id="qv-close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="pcard-cat" id="qv-cat">Apparel</div>
+      <h3 id="qv-title">Product</h3>
+      <p id="qv-desc">Description</p>
+      <div class="qv-price">0.00 CZK</div>
+      <button class="btn primary" id="qv-add"><span data-en="Add to Cart" data-cz="Do košíku">Add to Cart</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CHECKOUT DEMO ================= -->
+<div id="checkout-overlay">
+  <div id="checkout-modal">
+    <svg class="gem-mark" viewBox="0 0 200 200"><path d="M100 10 L170 60 L145 190 L55 190 L30 60 Z"/><path d="M100 10 L100 190"/><path d="M30 60 L170 60"/></svg>
+    <h3 data-en="Order Received" data-cz="Objednávka přijata">Order Received</h3>
+    <p data-en="This is a demo checkout — no payment was taken. Real checkout goes live with the store." data-cz="Toto je demo pokladny — žádná platba nebyla provedena. Reálná pokladna bude spuštěna s obchodem.">This is a demo checkout — no payment was taken. Real checkout goes live with the store.</p>
+    <button class="btn primary" id="checkout-close"><span data-en="Close" data-cz="Zavřít">Close</span></button>
+  </div>
+</div>
+
+<!-- ================= LIGHTBOX ================= -->
+<div id="lightbox">
+  <div class="lb-frame"></div>
+  <button class="lb-close" id="lb-close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+
+<div id="toast"></div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============================================================
+   LANGUAGE SWITCH
+============================================================ */
+function setLang(lang){
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('#lang-en,#lang-cz,.lang-switch-footer').forEach(b=>{
+    b.classList.toggle('active', b.dataset.set === lang);
+  });
+  document.querySelectorAll('[data-en-ph]').forEach(el=>{
+    el.setAttribute('placeholder', lang === 'cz' ? el.dataset.czPh : el.dataset.enPh);
+  });
+  localStorage.setItem('andree-lang', lang);
+}
+document.querySelectorAll('#lang-en,#lang-cz,.lang-switch-footer').forEach(btn=>{
+  btn.addEventListener('click', ()=> setLang(btn.dataset.set));
+});
+setLang('en');
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove', e=>{
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+});
+function ringLoop(){
+  rx += (mx-rx)*0.16; ry += (my-ry)*0.16;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(ringLoop);
+}
+ringLoop();
+document.querySelectorAll('a,button,.pcard,.g-item,.mcard,input,textarea').forEach(el=>{
+  el.addEventListener('mouseenter', ()=> ring.classList.add('big'));
+  el.addEventListener('mouseleave', ()=> ring.classList.remove('big'));
+});
+
+/* ============================================================
+   PARTICLE HERO BACKGROUND (canvas)
+============================================================ */
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let W,H,particles=[];
+function resizeCanvas(){
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+function initParticles(){
+  particles = [];
+  const count = Math.round((W*H)/16000);
+  for(let i=0;i<count;i++){
+    particles.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:Math.random()*1.4+0.3,
+      vx:(Math.random()-0.5)*0.15,
+      vy:(Math.random()-0.5)*0.15,
+      a:Math.random()*0.5+0.1
+    });
+  }
+}
+function drawParticles(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+    if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(243,241,234,${p.a})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawParticles);
+}
+window.addEventListener('resize', ()=>{ resizeCanvas(); initParticles(); });
+resizeCanvas(); initParticles(); drawParticles();
+
+/* ============================================================
+   LOADER
+============================================================ */
+window.addEventListener('load', ()=>{
+  const pct = document.getElementById('loader-pct');
+  let n=0;
+  const iv = setInterval(()=>{
+    n += Math.ceil(Math.random()*14);
+    if(n>=100){ n=100; clearInterval(iv); }
+    pct.textContent = String(n).padStart(2,'0') + ' / 100';
+  }, 90);
+
+  gsap.to('#loader .mark', {opacity:1, duration:.8, delay:.1});
+
+  const tl = gsap.timeline({ delay:1.9 });
+  tl.to('#loader', { yPercent:-100, duration:1, ease:'power4.inOut' })
+    .set('#loader', { display:'none' })
+    .call(runHeroIntro)
+    .call(initScrollAnimations);
+});
+
+/* ============================================================
+   HERO TEXT SPLIT + INTRO
+============================================================ */
+(function splitHeroTitle(){
+  const el = document.getElementById('hero-title');
+  const text = el.textContent;
+  el.innerHTML = '';
+  [...text].forEach(ch=>{
+    const span = document.createElement('span');
+    span.className='char';
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    el.appendChild(span);
+  });
+})();
+
+function runHeroIntro(){
+  const tl = gsap.timeline();
+  tl.to('.hero-title .char', {
+    y:'0%', duration:1.1, ease:'power4.out', stagger:0.035
+  })
+  .to('#hero-eyebrow', {opacity:1, duration:.7, ease:'power2.out'}, '-=0.7')
+  .to('#hero-sub', {opacity:1, duration:.8, ease:'power2.out'}, '-=0.5')
+  .to('#hero-cta', {opacity:1, duration:.8, ease:'power2.out'}, '-=0.5');
+}
+
+/* ============================================================
+   LENIS SMOOTH SCROLL
+============================================================ */
+const lenis = new Lenis({ lerp:0.09, smoothWheel:true });
+function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+lenis.on('scroll', ()=>{ if(window.ScrollTrigger) ScrollTrigger.update(); });
+if(window.gsap && window.ScrollTrigger){
+  gsap.ticker.add((time)=>{ lenis.raf(time*1000); });
+  gsap.ticker.lagSmoothing(0);
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href');
+    if(id.length>1 && document.querySelector(id)){
+      e.preventDefault();
+      lenis.scrollTo(id, {offset:-40});
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('burger').classList.remove('open');
+    }
+  });
+});
+
+/* ============================================================
+   SCROLLTRIGGER REVEALS
+============================================================ */
+function initScrollAnimations(){
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray('.reveal-up, h2, .divider').forEach(el=>{});
+
+  document.querySelectorAll('.tl-item, .mcard, .pcard, .g-item, .social-card, .video-frame').forEach(el=>{
+    gsap.fromTo(el, {opacity:0, y:36}, {
+      opacity:1, y:0, duration:1, ease:'power3.out',
+      scrollTrigger:{ trigger:el, start:'top 88%' }
+    });
+  });
+
+  document.querySelectorAll('.section-head h2').forEach(el=>{
+    gsap.fromTo(el, {opacity:0, y:24}, {
+      opacity:1, y:0, duration:1, ease:'power3.out',
+      scrollTrigger:{ trigger:el, start:'top 90%' }
+    });
+  });
+
+  gsap.utils.toArray('.bg-gem').forEach(el=>{
+    gsap.to(el, {
+      y:120, ease:'none',
+      scrollTrigger:{ trigger:el, start:'top top', end:'bottom top', scrub:1 }
+    });
+  });
+
+  ScrollTrigger.refresh();
+}
+
+/* ============================================================
+   NAV SCROLL STATE + PROGRESS BAR
+============================================================ */
+window.addEventListener('scroll', ()=>{
+  const nav = document.getElementById('nav');
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  const h = document.documentElement;
+  const progress = (h.scrollTop || document.body.scrollTop) / ((h.scrollHeight || document.body.scrollHeight) - h.clientHeight);
+  document.getElementById('scroll-progress').style.width = (progress*100)+'%';
+});
+
+/* ============================================================
+   MOBILE MENU
+============================================================ */
+const burger = document.getElementById('burger');
+const mmenu = document.getElementById('mobile-menu');
+burger.addEventListener('click', ()=>{
+  burger.classList.toggle('open');
+  mmenu.classList.toggle('open');
+});
+
+/* ============================================================
+   MUSIC TABS
+============================================================ */
+document.querySelectorAll('.music-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.music-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.music-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelector(`.music-panel[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+  });
+});
+
+/* ============================================================
+   STORE: FILTERS + SEARCH
+============================================================ */
+const chips = document.querySelectorAll('.filter-chip');
+const searchInput = document.getElementById('store-search-input');
+const productCards = document.querySelectorAll('#product-grid .pcard');
+let activeFilter='all';
+
+function applyStoreFilter(){
+  const q = searchInput.value.trim().toLowerCase();
+  productCards.forEach(card=>{
+    const matchesCat = activeFilter==='all' || card.dataset.cat===activeFilter;
+    const matchesQ = !q || card.dataset.name.toLowerCase().includes(q);
+    card.style.display = (matchesCat && matchesQ) ? '' : 'none';
+  });
+}
+chips.forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    chips.forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFilter = chip.dataset.filter;
+    applyStoreFilter();
+  });
+});
+searchInput.addEventListener('input', applyStoreFilter);
+
+/* ============================================================
+   CART
+============================================================ */
+let cart = [];
+const cartDrawer = document.getElementById('cart-drawer');
+const cartOverlay = document.getElementById('cart-overlay');
+const cartItemsEl = document.getElementById('cart-items');
+const cartCountEl = document.getElementById('cart-count');
+const cartTotalEl = document.getElementById('cart-total');
+
+function openCart(){ cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); }
+function closeCart(){ cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); }
+document.getElementById('cart-btn').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+function renderCart(){
+  const lang = document.documentElement.getAttribute('data-lang');
+  if(cart.length===0){
+    cartItemsEl.innerHTML = `<div class="cart-empty">${lang==='cz'?'Váš košík je prázdný.':'Your cart is empty.'}</div>`;
+  } else {
+    cartItemsEl.innerHTML = cart.map((item,i)=>`
+      <div class="cart-item">
+        <div class="cart-thumb"></div>
+        <div>
+          <h5>${lang==='cz'?item.titleCz:item.titleEn}</h5>
+          <span>${item.price.toFixed(2)} CZK</span><br>
+          <span class="cart-remove" data-idx="${i}">${lang==='cz'?'Odebrat':'Remove'}</span>
+        </div>
+        <span>x${item.qty}</span>
+      </div>
+    `).join('');
+  }
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  cartTotalEl.textContent = total.toFixed(2)+' CZK';
+  cartCountEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
+
+  cartItemsEl.querySelectorAll('.cart-remove').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      cart.splice(+btn.dataset.idx,1);
+      renderCart();
+    });
+  });
+}
+
+function addToCartFromCard(card){
+  const titleEn = card.dataset.titleEn, titleCz = card.dataset.titleCz;
+  const price = parseFloat(card.querySelector('.pcard-price')?.textContent || card.dataset.price || '0');
+  const existing = cart.find(i=>i.titleEn===titleEn);
+  if(existing){ existing.qty++; } else { cart.push({titleEn, titleCz, price:0, qty:1}); }
+  renderCart();
+  showToast(document.documentElement.getAttribute('data-lang')==='cz' ? 'Přidáno do košíku' : 'Added to cart');
+  openCart();
+}
+
+document.querySelectorAll('.add-to-cart').forEach(btn=>{
+  btn.addEventListener('click', ()=> addToCartFromCard(btn.closest('.pcard')));
+});
+
+document.getElementById('checkout-btn').addEventListener('click', ()=>{
+  if(cart.length===0) return;
+  closeCart();
+  document.getElementById('checkout-overlay').classList.add('open');
+});
+document.getElementById('checkout-close').addEventListener('click', ()=>{
+  document.getElementById('checkout-overlay').classList.remove('open');
+  cart = []; renderCart();
+});
+
+/* Wishlist toast */
+document.querySelectorAll('.wish-trigger').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    showToast(document.documentElement.getAttribute('data-lang')==='cz' ? 'Přidáno do oblíbených' : 'Added to wishlist');
+  });
+});
+
+/* ============================================================
+   QUICK VIEW
+============================================================ */
+const qvOverlay = document.getElementById('qv-overlay');
+document.querySelectorAll('.qv-trigger').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const card = btn.closest('.pcard');
+    const lang = document.documentElement.getAttribute('data-lang');
+    document.getElementById('qv-cat').textContent = card.querySelector('.pcard-cat').textContent;
+    document.getElementById('qv-title').textContent = lang==='cz'?card.dataset.titleCz:card.dataset.titleEn;
+    document.getElementById('qv-desc').textContent = lang==='cz'?card.dataset.descCz:card.dataset.descEn;
+    document.getElementById('qv-img').innerHTML = card.querySelector('.pcard-img svg').outerHTML;
+    qvOverlay.dataset.linkedCard = '';
+    qvOverlay._card = card;
+    qvOverlay.classList.add('open');
+  });
+});
+document.getElementById('qv-close').addEventListener('click', ()=> qvOverlay.classList.remove('open'));
+qvOverlay.addEventListener('click', e=>{ if(e.target===qvOverlay) qvOverlay.classList.remove('open'); });
+document.getElementById('qv-add').addEventListener('click', ()=>{
+  if(qvOverlay._card){ addToCartFromCard(qvOverlay._card); qvOverlay.classList.remove('open'); }
+});
+
+/* ============================================================
+   GALLERY LIGHTBOX
+============================================================ */
+const lightbox = document.getElementById('lightbox');
+document.querySelectorAll('.g-item').forEach(item=>{
+  item.addEventListener('click', ()=> lightbox.classList.add('open'));
+});
+document.getElementById('lb-close').addEventListener('click', ()=> lightbox.classList.remove('open'));
+lightbox.addEventListener('click', e=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
+
+/* ============================================================
+   SOCIAL COUNTERS (count-up on view)
+============================================================ */
+const counters = document.querySelectorAll('.sc-count .num');
+const counterObserver = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = +el.dataset.count;
+      gsap.to({v:0}, {
+        v:target, duration:1.8, ease:'power2.out',
+        onUpdate:function(){ el.textContent = Math.floor(this.targets()[0].v).toLocaleString('en-US'); }
+      });
+      counterObserver.unobserve(el);
+    }
+  });
+}, {threshold:.6});
+counters.forEach(c=> counterObserver.observe(c));
+
+/* ============================================================
+   FORMS (demo submission)
+============================================================ */
+document.getElementById('contact-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  const lang = document.documentElement.getAttribute('data-lang');
+  document.getElementById('contact-msg').textContent = lang==='cz' ? 'Zpráva odeslána — ozveme se brzy.' : 'Message sent — we will get back to you soon.';
+  e.target.reset();
+});
+document.getElementById('nl-submit').addEventListener('click', ()=>{
+  const input = document.getElementById('nl-email');
+  if(!input.value) return;
+  showToast(document.documentElement.getAttribute('data-lang')==='cz' ? 'Přihlášeno k odběru' : 'Subscribed');
+  input.value='';
+});
+
+/* ============================================================
+   TOAST
+============================================================ */
+let toastTimeout;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(()=> t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>
