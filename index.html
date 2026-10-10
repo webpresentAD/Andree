@@ -1,1186 +1,413 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ANDREE</title>
-<meta name="description" content="ANDREE — oficiální web. Hudba, styl, DRKSD.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='6' fill='%23D08B3F'/%3E%3C/svg%3E">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANDRÉE – Official Merch</title>
+<meta name="description" content="ANDRÉE – oficiální merch a streetwear od českého umělce. Official merch and streetwear by Czech artist Andrée.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Unbounded:wght@400;600;700;900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
 <style>
-/* ========================================================
-   ANDREE — design tokens
-   bg: near-black charcoal / ink: warm ivory / accent: copper ember
-   ======================================================== */
-:root{
-  --bg:#0a0a0c;
-  --bg-2:#101012;
-  --bg-3:#151517;
-  --ink:#eee8dc;
-  --ink-dim:rgba(238,232,220,.62);
-  --ink-faint:rgba(238,232,220,.34);
-  --accent:#d08b3f;
-  --accent-2:#e8b878;
-  --accent-soft:rgba(208,139,63,.14);
-  --line:rgba(238,232,220,.12);
-  --line-strong:rgba(238,232,220,.22);
-  --f-display:'Unbounded', sans-serif;
-  --f-body:'Inter', sans-serif;
-  --f-serif:'Instrument Serif', serif;
-  --ease:cubic-bezier(.16,.8,.24,1);
-  --ease-soft:cubic-bezier(.4,0,.2,1);
-  --container: 1320px;
-  --gutter: clamp(24px, 5vw, 72px);
-}
+:root{--bg:#fff;--fg:#000;--mute:#777;--line:#e4e4e4;--frame:#efefef;--hdr:56px;box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#000;--fg:#fff;--mute:#999;--line:#262626;--frame:#161616}}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--hdr)}
+body{font-family:"Archivo",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.wrap{padding:0 clamp(16px,3vw,40px);max-width:1600px;margin:0 auto}
+.u{font-stretch:75%;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
 
-*,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:auto;}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:var(--f-body);
-  font-weight:400;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
-  cursor:default;
-}
-img,svg{display:block;max-width:100%;}
-a{color:inherit;text-decoration:none;}
-button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
-ul{list-style:none;margin:0;padding:0;}
-h1,h2,h3,p{margin:0;}
+/* header */
+header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{height:var(--hdr);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-stretch:62%;font-weight:900;font-size:26px;letter-spacing:.04em;line-height:1}
+nav.d{display:flex;gap:28px;align-items:center;font-stretch:75%;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.06em}
+nav.d a,.lang button{position:relative;padding:4px 0}
+nav.d a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+nav.d a:hover::after{transform:scaleX(1)}
+.lang button{opacity:.4;transition:opacity .2s}
+.lang button[aria-pressed=true],.lang button:hover{opacity:1}
+.lang span{opacity:.4;margin:0 3px}
+.icons{display:flex;align-items:center;gap:6px}
+.ib{width:44px;height:44px;display:grid;place-items:center;position:relative}
+.ib svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6}
+.count{position:absolute;top:5px;right:3px;min-width:17px;height:17px;border-radius:9px;background:var(--fg);color:var(--bg);font-size:10px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+.count[hidden]{display:none}
+.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.35)}}
+.burger{display:none}
+.mnav{display:none;border-top:1px solid var(--line);padding:8px 0 16px}
+.mnav a,.mnav .lang{display:block;padding:12px 0;font-stretch:75%;font-weight:800;text-transform:uppercase;font-size:22px}
+.mnav.open{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(-6px)}}
+@media(max-width:760px){nav.d{display:none}.burger{display:grid}}
 
-::selection{background:var(--accent);color:#0a0a0c;}
+/* hero */
+.hero{position:relative;height:min(82vh,820px);min-height:420px;background:#111;overflow:hidden;color:#fff}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;align-items:flex-end}
+.slide.on{opacity:1;z-index:1}
+.slide .bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);transition:transform 7s ease-out}
+.slide.on .bg{transform:scale(1)}
+.slide .ph{position:absolute;top:16px;left:clamp(16px,3vw,40px);font-size:11px;opacity:.55}
+.slide .shade{position:absolute;inset:0;background:rgba(0,0,0,.28)}
+.cap{position:relative;padding-bottom:clamp(56px,9vw,96px);width:100%}
+.cap h1,.cap h2{font-stretch:62%;font-weight:900;text-transform:uppercase;line-height:.88;font-size:clamp(52px,12vw,180px);letter-spacing:.01em}
+.btn{display:inline-block;margin-top:22px;padding:13px 26px;background:#fff;color:#000;font-stretch:75%;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:14px;border:1px solid #fff;transition:background .2s,color .2s}
+.btn:hover{background:transparent;color:#fff}
+.btn.dk{background:var(--fg);color:var(--bg);border-color:var(--fg);width:100%;text-align:center}
+.btn.dk:hover{background:transparent;color:var(--fg)}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:48px;height:48px;display:grid;place-items:center;color:#fff;opacity:.75;transition:opacity .2s}
+.arrow:hover{opacity:1}
+.arrow svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.5}
+.prev{left:6px}.next{right:6px}
+.dots{position:absolute;z-index:3;right:clamp(16px,3vw,40px);bottom:24px;display:flex;gap:4px}
+.dots button{width:36px;height:24px;display:grid;align-items:center}
+.dots button::before{content:"";height:2px;background:rgba(255,255,255,.4);transition:background .3s}
+.dots button[aria-current=true]::before{background:#fff}
+@media(max-width:600px){.arrow{display:none}.hero{height:72vh}}
 
-:focus-visible{
-  outline:2px solid var(--accent);
-  outline-offset:4px;
-  border-radius:2px;
-}
+/* sections */
+section{padding:clamp(40px,6vw,80px) 0}
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px}
+.sh h2{font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:clamp(34px,5vw,60px);line-height:1}
+.sh a{font-size:14px;border-bottom:1px solid currentColor;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 12px}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr);gap:32px 16px}}
+.card{text-align:left;display:block;width:100%}
+.frame{aspect-ratio:4/5;background:var(--frame);overflow:hidden;position:relative;display:grid;place-items:center}
+.frame img,.frame .blank{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.frame .blank{display:grid;place-items:center;color:var(--mute);font-size:12px}
+.card:hover .frame>*{transform:scale(1.04)}
+.card .n{margin-top:12px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;gap:8px}
+.card .s{color:var(--mute);font-size:13px}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
 
-.skip-link{
-  position:absolute;left:0;top:-60px;z-index:999;
-  background:var(--accent);color:#0a0a0c;padding:12px 20px;
-  font-family:var(--f-body);font-weight:600;font-size:14px;
-  transition:top .25s var(--ease);
-}
-.skip-link:focus{top:0;}
+/* video */
+.video{border-top:1px solid var(--line)}
+.vid{aspect-ratio:16/9;width:100%;background:#000;max-width:1100px}
+.vid iframe{width:100%;height:100%;border:0}
 
-/* ---------- layout helpers ---------- */
-.wrap{
-  max-width:var(--container);
-  margin-inline:auto;
-  padding-inline:var(--gutter);
-}
-.section{
-  position:relative;
-  padding-block:clamp(96px, 14vw, 200px);
-  border-top:1px solid var(--line);
-}
-.eyebrow{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--f-body);
-  font-weight:600;
-  font-size:12px;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--accent);
-  margin-bottom:22px;
-}
-.eyebrow::before{
-  content:"";
-  width:7px;height:7px;border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 12px 2px var(--accent-soft);
-  flex-shrink:0;
-}
-.eyebrow .num{color:var(--ink-faint);font-weight:500;}
+/* footer */
+footer{border-top:1px solid var(--line);padding:40px 0 24px}
+.fg{display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:760px){.fg{grid-template-columns:2fr 1fr 1fr}}
+.fg .logo{font-size:44px}
+.fg ul{list-style:none;font-size:15px}
+.fg li{padding:2px 0}
+.fg a:hover{text-decoration:underline}
+.fb{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:44px;font-size:12px;color:var(--mute)}
+.cur button{padding:6px 2px;opacity:.5;font-weight:600;color:var(--fg)}
+.cur button[aria-pressed=true]{opacity:1;border-bottom:1px solid var(--fg)}
+.cur span{margin:0 4px}
 
-.h-lg{
-  font-family:var(--f-display);
-  font-weight:700;
-  font-size:clamp(2.3rem, 5.6vw, 4.6rem);
-  line-height:1.02;
-  letter-spacing:-.01em;
-  color:var(--ink);
-}
-.h-lg em{
-  font-family:var(--f-serif);
-  font-style:italic;
-  font-weight:400;
-  color:var(--accent-2);
-}
-.lede{
-  font-family:var(--f-body);
-  font-weight:400;
-  font-size:clamp(1rem,1.6vw,1.2rem);
-  line-height:1.65;
-  color:var(--ink-dim);
-  max-width:52ch;
-}
-
-.btn{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:16px 30px;
-  font-family:var(--f-body);
-  font-weight:600;
-  font-size:13px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  border-radius:999px;
-  isolation:isolate;
-  overflow:hidden;
-}
-.btn-primary{
-  background:var(--ink);
-  color:#0a0a0c;
-}
-.btn-primary::after{
-  content:"";
-  position:absolute;inset:0;
-  background:var(--accent);
-  transform:translateY(101%);
-  transition:transform .45s var(--ease);
-  z-index:-1;
-}
-.btn-primary:hover::after{transform:translateY(0);}
-.btn-ghost{
-  border:1px solid var(--line-strong);
-  color:var(--ink);
-  background:transparent;
-  transition:border-color .3s var(--ease-soft), background .3s var(--ease-soft);
-}
-.btn-ghost:hover{border-color:var(--accent);background:var(--accent-soft);}
-.btn svg{width:14px;height:14px;flex-shrink:0;transition:transform .3s var(--ease-soft);}
-.btn:hover svg{transform:translate(3px,-3px);}
-
-.pill{
-  display:inline-block;
-  padding:6px 14px;
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  border:1px solid var(--line-strong);
-  border-radius:999px;
-  color:var(--ink-dim);
-}
-
-/* ---------- cursor glow (signature element) ---------- */
-.glow{
-  position:fixed;
-  top:0;left:0;
-  width:640px;height:640px;
-  margin-left:-320px;margin-top:-320px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(208,139,63,.14) 0%, rgba(208,139,63,.05) 35%, transparent 70%);
-  pointer-events:none;
-  z-index:2;
-  transform:translate3d(-1000px,-1000px,0);
-  will-change:transform;
-  transition:opacity .4s ease;
-}
-@media (hover:none), (pointer:coarse){ .glow{display:none;} }
-
-/* ---------- preloader ---------- */
-.loader{
-  position:fixed;inset:0;
-  background:var(--bg);
-  z-index:1000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:22px;
-}
-.loader-mark{
-  font-family:var(--f-display);
-  font-weight:700;
-  font-size:clamp(1.6rem,4vw,2.2rem);
-  letter-spacing:.02em;
-}
-.loader-bar{
-  width:min(280px,60vw);
-  height:1px;
-  background:var(--line-strong);
-  position:relative;
-  overflow:hidden;
-}
-.loader-bar::after{
-  content:"";
-  position:absolute;left:0;top:0;bottom:0;
-  width:0%;
-  background:var(--accent);
-  animation:load 1.7s var(--ease-soft) forwards;
-}
-@keyframes load{ to{width:100%;} }
-.loader-pct{
-  font-size:11px;
-  letter-spacing:.2em;
-  color:var(--ink-faint);
-  font-variant-numeric:tabular-nums;
-}
-.loader.is-done{
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .7s var(--ease), visibility .7s;
-}
-
-/* ---------- nav ---------- */
-.nav{
-  position:fixed;top:0;left:0;right:0;
-  z-index:100;
-  padding:22px var(--gutter);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:linear-gradient(to bottom, rgba(10,10,12,.75), rgba(10,10,12,0));
-  transition:background .4s var(--ease-soft), border-color .4s var(--ease-soft), backdrop-filter .4s;
-  border-bottom:1px solid transparent;
-}
-.nav.scrolled{
-  background:rgba(10,10,12,.82);
-  backdrop-filter:blur(14px) saturate(140%);
-  border-bottom:1px solid var(--line);
-}
-.nav-logo{
-  font-family:var(--f-display);
-  font-weight:700;
-  font-size:16px;
-  letter-spacing:.06em;
-  display:flex;
-  align-items:baseline;
-  gap:6px;
-}
-.nav-logo .dot{color:var(--accent);}
-.nav-links{
-  display:flex;
-  gap:34px;
-}
-.nav-links a{
-  position:relative;
-  font-size:13px;
-  font-weight:500;
-  letter-spacing:.03em;
-  color:var(--ink-dim);
-  padding-bottom:4px;
-  transition:color .3s var(--ease-soft);
-}
-.nav-links a::after{
-  content:"";
-  position:absolute;left:0;right:100%;bottom:0;
-  height:1px;background:var(--accent);
-  transition:right .35s var(--ease);
-}
-.nav-links a:hover{color:var(--ink);}
-.nav-links a:hover::after{right:0;}
-.nav-right{display:flex;align-items:center;gap:22px;}
-.lang-switch{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:.05em;
-}
-.lang-switch button{
-  padding:4px 8px;
-  color:var(--ink-faint);
-  transition:color .25s ease;
-}
-.lang-switch button.active{color:var(--accent);}
-.lang-switch span{color:var(--line-strong);}
-.burger{
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  width:26px;
-  z-index:200;
-}
-.burger span{
-  height:1px;background:var(--ink);width:100%;
-  transition:transform .35s var(--ease), opacity .3s ease;
-}
-.menu-open .burger span:nth-child(1){transform:translateY(6px) rotate(45deg);}
-.menu-open .burger span:nth-child(2){opacity:0;}
-.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
-
-.mobile-menu{
-  position:fixed;inset:0;
-  background:var(--bg-2);
-  z-index:90;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:0 var(--gutter);
-  clip-path:circle(0% at calc(100% - 40px) 40px);
-  transition:clip-path .6s var(--ease);
-  pointer-events:none;
-}
-.menu-open .mobile-menu{
-  clip-path:circle(150% at calc(100% - 40px) 40px);
-  pointer-events:auto;
-}
-.mobile-menu a{
-  font-family:var(--f-display);
-  font-size:clamp(1.8rem,8vw,3rem);
-  font-weight:600;
-  padding:14px 0;
-  border-bottom:1px solid var(--line);
-  opacity:0;
-  transform:translateY(16px);
-}
-.menu-open .mobile-menu a{
-  animation:menuIn .6s var(--ease) forwards;
-}
-.mobile-menu a:nth-child(1){animation-delay:.1s;}
-.mobile-menu a:nth-child(2){animation-delay:.16s;}
-.mobile-menu a:nth-child(3){animation-delay:.22s;}
-.mobile-menu a:nth-child(4){animation-delay:.28s;}
-.mobile-menu a:nth-child(5){animation-delay:.34s;}
-.mobile-menu a:nth-child(6){animation-delay:.4s;}
-@keyframes menuIn{to{opacity:1;transform:translateY(0);}}
-
-/* ---------- hero ---------- */
-.hero{
-  position:relative;
-  min-height:100svh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:140px var(--gutter) 80px;
-  overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;
-  z-index:0;
-  background:
-    radial-gradient(ellipse 70% 50% at 30% 20%, rgba(208,139,63,.10), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(208,139,63,.06), transparent 60%);
-}
-.hero-noise{
-  position:absolute;inset:0;z-index:0;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.hero-inner{position:relative;z-index:1;}
-.hero-eyebrow{
-  display:flex;align-items:center;gap:12px;
-  font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--ink-faint);
-  margin-bottom:34px;
-}
-.hero-eyebrow .sep{color:var(--accent);}
-.hero-mark{
-  font-family:var(--f-display);
-  font-weight:900;
-  font-size:clamp(3.4rem, 15vw, 11.5rem);
-  line-height:.86;
-  letter-spacing:-.02em;
-  display:flex;
-  flex-wrap:wrap;
-}
-.hero-mark .ch{
-  display:inline-block;
-  transform:translateY(110%);
-  opacity:0;
-}
-.hero-sub{
-  margin-top:34px;
-  max-width:44ch;
-}
-.hero-sub .lede{font-size:clamp(1.05rem,2vw,1.3rem);}
-.hero-cta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:16px;
-  margin-top:48px;
-}
-.hero-scroll{
-  position:absolute;
-  bottom:34px;left:var(--gutter);
-  display:flex;align-items:center;gap:12px;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink-faint);
-  z-index:1;
-}
-.hero-scroll .line{
-  width:1px;height:38px;
-  background:linear-gradient(to bottom, var(--accent), transparent);
-  position:relative;
-  overflow:hidden;
-}
-.hero-scroll .line::after{
-  content:"";
-  position:absolute;left:0;top:-100%;width:100%;height:100%;
-  background:var(--ink);
-  animation:scrollLine 2.2s var(--ease-soft) infinite;
-}
-@keyframes scrollLine{ 50%{top:100%;} 100%{top:100%;} }
-
-/* ---------- generic reveal ---------- */
-.reveal{opacity:0;transform:translateY(34px);}
-.split-line{overflow:hidden;}
-.split-line span{
-  display:inline-block;
-  transform:translateY(102%);
-}
-
-/* ---------- shop ---------- */
-.shop-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:40px;
-  flex-wrap:wrap;
-  margin-bottom:64px;
-}
-.shop-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:1px;
-  background:var(--line);
-  border:1px solid var(--line);
-}
-.shop-card{
-  background:var(--bg);
-  padding:0;
-  display:flex;
-  flex-direction:column;
-  position:relative;
-}
-.shop-card-media{
-  aspect-ratio:3/4;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(150deg, var(--bg-3) 0%, var(--bg-2) 60%),
-    radial-gradient(circle at 30% 20%, rgba(208,139,63,.16), transparent 55%);
-}
-.shop-card-media::before{
-  content:"";
-  position:absolute;inset:0;
-  opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.shop-card-media .glyph{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--f-display);
-  font-weight:700;
-  font-size:15vw;
-  max-font-size:64px;
-  color:rgba(238,232,220,.05);
-  transition:transform .7s var(--ease), color .5s ease;
-}
-.shop-card:hover .shop-card-media .glyph{
-  transform:scale(1.08);
-  color:rgba(238,232,220,.08);
-}
-.shop-card-tag{
-  position:absolute;top:16px;left:16px;
-  font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  padding:6px 10px;
-  background:rgba(10,10,12,.6);
-  backdrop-filter:blur(6px);
-  border:1px solid var(--line-strong);
-  border-radius:999px;
-  color:var(--accent-2);
-}
-.shop-card-body{
-  padding:22px;
-  border-top:1px solid var(--line);
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.shop-card-name{font-family:var(--f-display);font-weight:600;font-size:15px;}
-.shop-card-price{font-size:13px;color:var(--ink-faint);font-variant-numeric:tabular-nums;}
-.shop-note{
-  margin-top:40px;
-  font-size:13px;
-  color:var(--ink-faint);
-  max-width:56ch;
-}
-
-/* ---------- about ---------- */
-.about-grid{
-  display:grid;
-  grid-template-columns:.9fr 1.1fr;
-  gap:clamp(40px,6vw,100px);
-  align-items:start;
-}
-.about-mark{
-  position:sticky;top:120px;
-}
-.about-body{
-  padding-top:6px;
-}
-.about-body .lede{max-width:none;font-size:clamp(1.1rem,1.8vw,1.35rem);color:var(--ink);}
-.about-body .lede + .lede{margin-top:22px;color:var(--ink-dim);font-size:1rem;}
-.about-placeholder{
-  margin-top:44px;
-  padding:26px 28px;
-  border:1px dashed var(--line-strong);
-  border-radius:4px;
-  font-size:13px;
-  color:var(--ink-faint);
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-.about-placeholder svg{width:18px;height:18px;flex-shrink:0;color:var(--accent);}
-
-/* ---------- video ---------- */
-.video-frame{
-  position:relative;
-  border:1px solid var(--line-strong);
-  border-radius:4px;
-  overflow:hidden;
-  aspect-ratio:16/9;
-  background:var(--bg-2);
-  margin-top:50px;
-}
-.video-frame::before{
-  content:"";
-  position:absolute;inset:-1px;
-  background:linear-gradient(120deg, var(--accent) 0%, transparent 30%);
-  opacity:.25;
-  pointer-events:none;
-  z-index:2;
-  mix-blend-mode:screen;
-}
-.video-frame iframe{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  border:0;
-}
-.video-foot{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:16px;
-  margin-top:26px;
-}
-.video-foot .lede{max-width:48ch;font-size:14px;}
-
-/* ---------- instagram ---------- */
-.insta-wrap{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:clamp(40px,6vw,90px);
-  align-items:center;
-}
-.insta-tiles{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-.insta-tile{
-  aspect-ratio:1;
-  border-radius:3px;
-  background:linear-gradient(155deg, var(--bg-3), var(--bg-2));
-  border:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-  transition:transform .5s var(--ease);
-}
-.insta-tile:nth-child(1),.insta-tile:nth-child(5){background:linear-gradient(155deg, rgba(208,139,63,.18), var(--bg-2));}
-.insta-tile:hover{transform:translateY(-6px);}
-.insta-tile svg{width:22px;height:22px;color:var(--ink-faint);}
-.insta-cta{margin-top:34px;}
-
-/* ---------- contact ---------- */
-.contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:clamp(40px,6vw,90px);
-}
-.contact-links{
-  display:flex;
-  flex-direction:column;
-  gap:1px;
-  background:var(--line);
-  border:1px solid var(--line);
-  margin-top:38px;
-}
-.contact-link{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:24px 26px;
-  background:var(--bg);
-  transition:background .3s var(--ease-soft);
-}
-.contact-link:hover{background:var(--bg-2);}
-.contact-link .label{
-  display:flex;align-items:center;gap:14px;
-  font-family:var(--f-display);
-  font-weight:600;
-  font-size:clamp(1rem,2vw,1.3rem);
-}
-.contact-link svg.icon{width:20px;height:20px;color:var(--accent);}
-.contact-link svg.arrow{width:16px;height:16px;color:var(--ink-faint);transition:transform .3s var(--ease-soft);}
-.contact-link:hover svg.arrow{transform:translate(4px,-4px);}
-.contact-note{
-  margin-top:22px;
-  font-size:12.5px;
-  color:var(--ink-faint);
-}
-
-/* ---------- footer ---------- */
-footer{
-  border-top:1px solid var(--line);
-  padding:50px var(--gutter) 40px;
-}
-.footer-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:24px;
-  padding-bottom:34px;
-  border-bottom:1px solid var(--line);
-}
-.footer-mark{
-  font-family:var(--f-display);
-  font-weight:700;
-  font-size:22px;
-}
-.footer-mark .dot{color:var(--accent);}
-.footer-socials{display:flex;gap:22px;}
-.footer-socials a{
-  width:40px;height:40px;
-  border:1px solid var(--line-strong);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  transition:border-color .3s ease, background .3s ease;
-}
-.footer-socials a:hover{border-color:var(--accent);background:var(--accent-soft);}
-.footer-socials svg{width:16px;height:16px;}
-.footer-bottom{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-  padding-top:26px;
-  font-size:12px;
-  color:var(--ink-faint);
-}
-.footer-bottom nav{display:flex;gap:22px;}
-.footer-bottom a:hover{color:var(--ink);}
-
-/* ---------- responsive ---------- */
-@media (max-width:980px){
-  .nav-links{display:none;}
-  .burger{display:flex;}
-  .shop-grid{grid-template-columns:repeat(2,1fr);}
-  .about-grid,.insta-wrap,.contact-grid{grid-template-columns:1fr;}
-  .about-mark{position:static;}
-  .insta-tiles{order:2;}
-}
-@media (max-width:560px){
-  .shop-grid{grid-template-columns:1fr 1fr;}
-  .insta-tiles{grid-template-columns:repeat(3,1fr);}
-  .lang-switch{display:none;}
-}
-
-@media (prefers-reduced-motion:reduce){
-  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-  .hero-mark .ch, .split-line span, .reveal{opacity:1 !important;transform:none !important;}
-}
+/* overlay panels */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
+.ov.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg);z-index:100;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:8px 8px 8px 20px;border-bottom:1px solid var(--line)}
+.dh h3{font-stretch:75%;font-weight:800;text-transform:uppercase;font-size:20px}
+.db{flex:1;overflow:auto;padding:8px 20px}
+.df{padding:20px;border-top:1px solid var(--line)}
+.row{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.row .th{width:72px;aspect-ratio:4/5;background:var(--frame);flex:none}
+.row .i{flex:1;font-size:14px}
+.row .i b{display:block;font-size:15px}
+.q{display:inline-flex;align-items:center;border:1px solid var(--line);margin-top:8px}
+.q button{width:32px;height:32px}
+.q span{min-width:28px;text-align:center}
+.rm{font-size:12px;color:var(--mute);text-decoration:underline;margin-left:10px}
+.sub{display:flex;justify-content:space-between;font-weight:700;margin-bottom:6px}
+.note{font-size:12px;color:var(--mute);margin-bottom:14px}
+.empty{padding:48px 0;text-align:center;color:var(--mute)}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;pointer-events:none;opacity:0;transition:opacity .3s}
+.modal.on{opacity:1;pointer-events:auto}
+.mb{background:var(--bg);width:min(900px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1fr;transform:translateY(12px);transition:transform .3s;position:relative}
+.modal.on .mb{transform:none}
+@media(min-width:760px){.mb{grid-template-columns:1fr 1fr}}
+.mi{padding:24px;display:flex;flex-direction:column;gap:14px}
+.mi h3{font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:40px;line-height:1}
+.sz{display:flex;gap:8px;flex-wrap:wrap}
+.sz button{min-width:48px;height:44px;border:1px solid var(--line);font-weight:600;transition:border-color .2s,background .2s,color .2s}
+.sz button:hover{border-color:var(--fg)}
+.sz button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.x{position:absolute;top:4px;right:4px;z-index:2}
+.err{color:#c33;font-size:13px;min-height:18px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}.rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 
-<a href="#main" class="skip-link">Přeskočit na obsah / Skip to content</a>
-
-<div class="loader" id="loader" aria-hidden="true">
-  <div class="loader-mark">ANDREE</div>
-  <div class="loader-bar"></div>
-  <div class="loader-pct" id="loaderPct">0%</div>
-</div>
-
-<div class="glow" id="glow"></div>
-
-<!-- ================= NAV ================= -->
-<header class="nav" id="nav">
-  <a href="#home" class="nav-logo">ANDREE<span class="dot">.</span></a>
-
-  <nav class="nav-links" aria-label="Hlavní navigace">
-    <a href="#home" data-cs="Domů" data-en="Home">Domů</a>
-    <a href="#shop" data-cs="Shop" data-en="Shop">Shop</a>
-    <a href="#about" data-cs="O nás" data-en="About">O nás</a>
-    <a href="#videos" data-cs="Videa" data-en="Videos">Videa</a>
-    <a href="#instagram" data-cs="Instagram" data-en="Instagram">Instagram</a>
-    <a href="#contact" data-cs="Kontakt" data-en="Contact">Kontakt</a>
-  </nav>
-
-  <div class="nav-right">
-    <div class="lang-switch" role="group" aria-label="Jazyk / Language">
-      <button type="button" data-lang="cs" class="active">CZ</button>
-      <span>/</span>
-      <button type="button" data-lang="en">EN</button>
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <a href="#top" class="logo" aria-label="ANDRÉE">ANDRÉE</a>
+      <nav class="d" aria-label="Main">
+        <a href="#shop" data-t="nav_shop"></a>
+        <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">YouTube</a>
+        <span class="lang"><button data-lang="cs" aria-pressed="true">CS</button><span>/</span><button data-lang="en" aria-pressed="false">EN</button></span>
+      </nav>
+      <div class="icons">
+        <button class="ib" id="cartBtn" data-al="cart" aria-label="Cart">
+          <svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <span class="count" id="count" hidden>0</span>
+        </button>
+        <button class="ib burger" id="burger" aria-expanded="false" aria-controls="mnav" data-al="menu" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg>
+        </button>
+      </div>
     </div>
-    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="mnav" id="mnav">
+      <a href="#shop" data-t="nav_shop"></a>
+      <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">YouTube</a>
+      <span class="lang"><button data-lang="cs" aria-pressed="true">CS</button><span>/</span><button data-lang="en" aria-pressed="false">EN</button></span>
+    </div>
   </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home">Domů</a>
-  <a href="#shop">Shop</a>
-  <a href="#about" data-cs="O nás" data-en="About">O nás</a>
-  <a href="#videos" data-cs="Videa" data-en="Videos">Videa</a>
-  <a href="#instagram">Instagram</a>
-  <a href="#contact" data-cs="Kontakt" data-en="Contact">Kontakt</a>
-</div>
+<main id="top">
+  <!-- HERO -->
+  <div class="hero" id="hero" role="region" aria-roledescription="carousel" aria-label="Andrée">
+    <button class="arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
+    <button class="arrow next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
+    <div class="dots" id="dots"></div>
+  </div>
 
-<main id="main">
-
-  <!-- ================= HERO ================= -->
-  <section class="hero" id="home">
-    <div class="hero-bg" id="heroBg"></div>
-    <div class="hero-noise"></div>
-    <div class="hero-inner wrap" style="padding-inline:0;">
-      <div class="hero-eyebrow">
-        <span data-cs="Andree" data-en="Andree">Andree</span>
-        <span class="sep">•</span>
-        <span>DRKSD</span>
-      </div>
-      <h1 class="hero-mark" id="heroMark" aria-label="ANDREE"></h1>
-      <div class="hero-sub">
-        <p class="lede" data-cs="Značka, která nekřičí. Jen je." data-en="A name that doesn't shout. It simply is.">Značka, která nekřičí. Jen je.</p>
-      </div>
-      <div class="hero-cta">
-        <a href="#shop" class="btn btn-primary">
-          <span data-cs="Prozkoumat shop" data-en="Explore the shop">Prozkoumat shop</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
-        </a>
-        <a href="https://www.instagram.com/andreedrksd/" target="_blank" rel="noopener" class="btn btn-ghost">
-          <span data-cs="Sledovat na Instagramu" data-en="Follow on Instagram">Sledovat na Instagramu</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <span data-cs="Scroll" data-en="Scroll">Scroll</span>
-      <span class="line"></span>
-    </div>
-  </section>
-
-  <!-- ================= SHOP ================= -->
-  <section class="section" id="shop">
+  <!-- PRODUCTS -->
+  <section id="shop">
     <div class="wrap">
-      <div class="shop-head">
-        <div>
-          <div class="eyebrow"><span class="num">01</span><span data-cs="Shop" data-en="Shop">Shop</span></div>
-          <h2 class="h-lg" data-cs="Připravujeme první kolekci." data-en="The first collection is coming.">Připravujeme první kolekci.</h2>
-        </div>
-        <p class="lede" data-cs="Zatím žádné produkty k prodeji — jen náhled prostoru, ve kterém budou žít." data-en="No products for sale yet — just a preview of the space they'll live in.">Zatím žádné produkty k prodeji — jen náhled prostoru, ve kterém budou žít.</p>
-      </div>
-
-      <div class="shop-grid">
-        <article class="shop-card reveal">
-          <div class="shop-card-media">
-            <span class="shop-card-tag" data-cs="Již brzy" data-en="Coming Soon">Již brzy</span>
-            <span class="glyph">01</span>
-          </div>
-          <div class="shop-card-body">
-            <span class="shop-card-name" data-cs="Item 01" data-en="Item 01">Item 01</span>
-            <span class="shop-card-price">0.00 CZK</span>
-          </div>
-        </article>
-        <article class="shop-card reveal">
-          <div class="shop-card-media">
-            <span class="shop-card-tag" data-cs="Limitovaný drop" data-en="Limited Drop">Limitovaný drop</span>
-            <span class="glyph">02</span>
-          </div>
-          <div class="shop-card-body">
-            <span class="shop-card-name" data-cs="Item 02" data-en="Item 02">Item 02</span>
-            <span class="shop-card-price">0.00 CZK</span>
-          </div>
-        </article>
-        <article class="shop-card reveal">
-          <div class="shop-card-media">
-            <span class="shop-card-tag" data-cs="Již brzy" data-en="Coming Soon">Již brzy</span>
-            <span class="glyph">03</span>
-          </div>
-          <div class="shop-card-body">
-            <span class="shop-card-name" data-cs="Item 03" data-en="Item 03">Item 03</span>
-            <span class="shop-card-price">0.00 CZK</span>
-          </div>
-        </article>
-        <article class="shop-card reveal">
-          <div class="shop-card-media">
-            <span class="shop-card-tag" data-cs="Limitovaný drop" data-en="Limited Drop">Limitovaný drop</span>
-            <span class="glyph">04</span>
-          </div>
-          <div class="shop-card-body">
-            <span class="shop-card-name" data-cs="Item 04" data-en="Item 04">Item 04</span>
-            <span class="shop-card-price">0.00 CZK</span>
-          </div>
-        </article>
-      </div>
-
-      <p class="shop-note" data-cs="Karty výše jsou pouze prémiové placeholdery připravené k pozdějšímu nahrazení skutečnými produkty." data-en="The cards above are premium placeholders, ready to be replaced with real products later.">Karty výše jsou pouze prémiové placeholdery připravené k pozdějšímu nahrazení skutečnými produkty.</p>
+      <div class="sh rv"><h2 data-t="shop_h"></h2></div>
+      <div class="grid rv" id="grid"></div>
     </div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
-  <section class="section" id="about">
+  <!-- VIDEO -->
+  <section class="video">
     <div class="wrap">
-      <div class="about-grid">
-        <div class="about-mark">
-          <div class="eyebrow"><span class="num">02</span><span data-cs="O nás" data-en="About">O nás</span></div>
-          <h2 class="h-lg" data-cs="Vznikla z ticha, <br> ne z <em>hluku.</em>" data-en="Born from quiet, <br> not <em>noise.</em>">Vznikla z ticha,<br> ne z <em>hluku.</em></h2>
-        </div>
-        <div class="about-body">
-          <p class="lede" data-cs="ANDREE je prostor, který se teprve tvoří." data-en="ANDREE is a space still taking shape.">ANDREE je prostor, který se teprve tvoří.</p>
-          <p class="lede" data-cs="Víc než čísla nás zajímá to, co po sobě zanecháme — hudba, obraz, pocit. Zbytek přijde s časem." data-en="What matters more than numbers is what's left behind — the music, the image, the feeling. The rest will come with time.">Víc než čísla nás zajímá to, co po sobě zanecháme — hudba, obraz, pocit. Zbytek přijde s časem.</p>
-          <div class="about-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
-            <span data-cs="Více informací brzy." data-en="More information soon.">Více informací brzy.</span>
-          </div>
-        </div>
+      <div class="sh rv">
+        <h2 data-t="video_h"></h2>
+        <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener" data-t="video_link"></a>
+      </div>
+      <div class="vid rv">
+        <iframe src="https://www.youtube.com/embed/5QwvGg13Xnk?start=4" title="ANDRÉE – YouTube" loading="lazy"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
   </section>
-
-  <!-- ================= VIDEOS ================= -->
-  <section class="section" id="videos">
-    <div class="wrap">
-      <div class="eyebrow"><span class="num">03</span><span data-cs="Nejnovější video" data-en="Latest video">Nejnovější video</span></div>
-      <h2 class="h-lg" data-cs="Sledujte přímo tady." data-en="Watch it right here.">Sledujte přímo tady.</h2>
-
-      <div class="video-frame reveal">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=UUHcg-g6F013CHthdYjFVzqQ&rel=0"
-          title="ANDREE — nejnovější video na YouTube"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <div class="video-foot">
-        <p class="lede" data-cs="Video se přehrává přímo na webu — nikam neodcházíte." data-en="The video plays directly on the site — you never leave the page.">Video se přehrává přímo na webu — nikam neodcházíte.</p>
-        <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener" class="btn btn-ghost">
-          <span data-cs="Celý kanál na YouTube" data-en="Full channel on YouTube">Celý kanál na YouTube</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= INSTAGRAM ================= -->
-  <section class="section" id="instagram">
-    <div class="wrap">
-      <div class="insta-wrap">
-        <div class="insta-tiles reveal">
-          <div class="insta-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
-          <div class="insta-tile"></div>
-          <div class="insta-tile"></div>
-          <div class="insta-tile"></div>
-          <div class="insta-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
-          <div class="insta-tile"></div>
-        </div>
-        <div>
-          <div class="eyebrow"><span class="num">04</span><span>Instagram</span></div>
-          <h2 class="h-lg" data-cs="Buďte u toho." data-en="Be part of it.">Buďte u toho.</h2>
-          <p class="lede" style="margin-top:20px;" data-cs="Nejrychlejší přehled o tom, co se zrovna děje — přímo od ANDREE." data-en="The fastest look at what's happening right now — straight from ANDREE.">Nejrychlejší přehled o tom, co se zrovna děje — přímo od ANDREE.</p>
-          <a href="https://www.instagram.com/andreedrksd/" target="_blank" rel="noopener" class="btn btn-primary insta-cta">
-            <span data-cs="Sledovat @andreedrksd" data-en="Follow @andreedrksd">Sledovat @andreedrksd</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CONTACT ================= -->
-  <section class="section" id="contact">
-    <div class="wrap">
-      <div class="contact-grid">
-        <div>
-          <div class="eyebrow"><span class="num">05</span><span data-cs="Kontakt" data-en="Contact">Kontakt</span></div>
-          <h2 class="h-lg" data-cs="Ozvěte se přes sociální sítě." data-en="Reach out on social.">Ozvěte se přes sociální sítě.</h2>
-          <p class="contact-note" data-cs="Aktuálně dostupné pouze přes oficiální YouTube a Instagram." data-en="Currently reachable only through the official YouTube and Instagram.">Aktuálně dostupné pouze přes oficiální YouTube a Instagram.</p>
-        </div>
-        <div>
-          <div class="contact-links reveal">
-            <a class="contact-link" href="https://www.instagram.com/andreedrksd/" target="_blank" rel="noopener">
-              <span class="label">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-                Instagram
-              </span>
-              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
-            </a>
-            <a class="contact-link" href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">
-              <span class="label">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 8.5s-.2-1.6-.8-2.3c-.8-.8-1.7-.9-2.1-.9C16.4 5 12 5 12 5h0s-4.4 0-7.1.3c-.4 0-1.3.1-2.1.9C2.2 6.9 2 8.5 2 8.5S1.8 10.3 1.8 12.1v1.7c0 1.8.2 3.6.2 3.6s.2 1.6.8 2.3c.8.9 1.9.8 2.3.9 1.7.2 7 .3 7 .3s4.4 0 7.1-.3c.4-.1 1.3-.1 2.1-.9.6-.7.8-2.3.8-2.3s.2-1.8.2-3.6v-1.7c0-1.8-.2-3.6-.2-3.6z"/><path d="M10 15l5-3-5-3v6z" fill="currentColor" stroke="none"/></svg>
-                YouTube
-              </span>
-              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </main>
 
-<!-- ================= FOOTER ================= -->
 <footer>
-  <div class="footer-top">
-    <a href="#home" class="footer-mark">ANDREE<span class="dot">.</span></a>
-    <div class="footer-socials">
-      <a href="https://www.instagram.com/andreedrksd/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-      </a>
-      <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 8.5s-.2-1.6-.8-2.3c-.8-.8-1.7-.9-2.1-.9C16.4 5 12 5 12 5h0s-4.4 0-7.1.3c-.4 0-1.3.1-2.1.9C2.2 6.9 2 8.5 2 8.5S1.8 10.3 1.8 12.1v1.7c0 1.8.2 3.6.2 3.6s.2 1.6.8 2.3c.8.9 1.9.8 2.3.9 1.7.2 7 .3 7 .3s4.4 0 7.1-.3c.4-.1 1.3-.1 2.1-.9.6-.7.8-2.3.8-2.3s.2-1.8.2-3.6v-1.7c0-1.8-.2-3.6-.2-3.6z"/><path d="M10 15l5-3-5-3v6z" fill="currentColor" stroke="none"/></svg>
-      </a>
+  <div class="wrap">
+    <div class="fg">
+      <div><div class="logo">ANDRÉE</div></div>
+      <div>
+        <ul>
+          <li><a href="https://www.instagram.com/andreedrksd/?igshid=9919x2zau0o4&fbclid=IwAR0NL1OPqTJpmo6j_nB-RySkfmEQ77EPwTYMu2_qwgehCDyo2qLwMijjRgw" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><a href="mailto:email@andree.cz">email@andree.cz</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&copy; <span id="year">2026</span> ANDREE. <span data-cs="Všechna práva vyhrazena." data-en="All rights reserved.">Všechna práva vyhrazena.</span></span>
-    <nav>
-      <a href="#shop">Shop</a>
-      <a href="#about" data-cs="O nás" data-en="About">O nás</a>
-      <a href="#contact" data-cs="Kontakt" data-en="Contact">Kontakt</a>
-    </nav>
+    <div class="fb">
+      <div class="cur" role="group" aria-label="Currency">
+        <button data-cur="CZK" aria-pressed="true">CZK</button><span>/</span><button data-cur="EUR" aria-pressed="false">EUR</button>
+      </div>
+      <div>© <span id="yr"></span> ANDRÉE</div>
+      <div>made by <a href="#top" style="text-decoration:underline">Donda Digital</a></div>
+    </div>
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<!-- Cart drawer -->
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Cart">
+  <div class="dh"><h3 data-t="cart_h"></h3><button class="ib" data-close data-al="close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db" id="cartBody"></div>
+  <div class="df" id="cartFoot"></div>
+</aside>
+
+<!-- Product modal -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="mb">
+    <button class="ib x" data-close data-al="close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="frame" style="aspect-ratio:auto;min-height:320px" id="mImg"></div>
+    <div class="mi" id="mInfo"></div>
+  </div>
+</div>
 
 <script>
-(function(){
-  "use strict";
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ============ EDIT HERE ============ */
+const EUR_RATE = 25;               // 1 EUR = 25 CZK (update as needed)
+const SLIDES = [                   // replace img with your photo URL / path
+  {img:"", tone:"#1a1a1a", cs:["Nový drop","Objevit drop"], en:["New drop","Discover the drop"]},
+  {img:"", tone:"#2a2a2a", cs:["Andrée","Nakupovat"],        en:["Andrée","Shop now"]},
+  {img:"", tone:"#0f0f0f", cs:["Merch","Nakupovat"],         en:["Merch","Shop now"]}
+];
+const PRODUCTS = [                 // price in CZK; img = product photo URL
+  {id:1,name:"Produkt 1",price:0,img:"",sizes:["S","M","L","XL"]},
+  {id:2,name:"Produkt 2",price:0,img:"",sizes:["S","M","L","XL"]},
+  {id:3,name:"Produkt 3",price:0,img:"",sizes:["S","M","L","XL"]},
+  {id:4,name:"Produkt 4",price:0,img:"",sizes:["S","M","L","XL"]}
+];
+/* =================================== */
 
-  /* ---------- year ---------- */
-  document.getElementById('year').textContent = new Date().getFullYear();
+const T={
+cs:{nav_shop:"Shop",shop_h:"Nejnovější drop",video_h:"Nejnovější video",video_link:"Navštívit YouTube",
+ soon:"Připravujeme",size:"Velikost",pick:"Vyberte velikost",add:"Přidat do košíku",added:"Přidáno",cart_h:"Košík",
+ empty:"Váš košík je prázdný.",sub:"Mezisoučet",checkout:"Pokladna (brzy)",demo:"Ukázkový košík – platby zatím nejsou aktivní.",
+ remove:"Odebrat",ph:"Zástupný obrázek – nahraďte fotografií",cart:"Košík",menu:"Menu",close:"Zavřít"},
+en:{nav_shop:"Shop",shop_h:"Latest drop",video_h:"Latest video",video_link:"Visit YouTube",
+ soon:"Coming soon",size:"Size",pick:"Select a size",add:"Add to cart",added:"Added",cart_h:"Cart",
+ empty:"Your cart is empty.",sub:"Subtotal",checkout:"Checkout (soon)",demo:"Demo cart – payments are not active yet.",
+ remove:"Remove",ph:"Placeholder image – replace with a photo",cart:"Cart",menu:"Menu",close:"Close"}};
 
-  /* ---------- build hero letters ---------- */
-  var heroMark = document.getElementById('heroMark');
-  var word = "ANDREE";
-  word.split('').forEach(function(ch, i){
-    var span = document.createElement('span');
-    span.className = 'ch';
-    span.style.transitionDelay = (i * 0.045) + 's';
-    span.textContent = ch;
-    heroMark.appendChild(span);
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+let lang="cs", cur="CZK", cart=[], slide=0, timer, openProd=null, selSize=null;
+try{lang=localStorage.getItem("a_lang")||"cs";cur=localStorage.getItem("a_cur")||"CZK";cart=JSON.parse(localStorage.getItem("a_cart")||"[]")}catch(e){}
+const t=k=>T[lang][k];
+const money=n=>cur==="CZK"?n.toFixed(2)+" CZK":(n/EUR_RATE).toFixed(2)+" EUR";
+const save=()=>{try{localStorage.setItem("a_lang",lang);localStorage.setItem("a_cur",cur);localStorage.setItem("a_cart",JSON.stringify(cart))}catch(e){}};
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* hero */
+function buildHero(){
+  $$(".slide").forEach(s=>s.remove());
+  const hero=$("#hero"), dots=$("#dots");
+  dots.innerHTML="";
+  SLIDES.forEach((s,i)=>{
+    const [h,b]=s[lang];
+    const el=document.createElement("div");
+    el.className="slide"+(i===slide?" on":"");
+    el.setAttribute("role","group");el.setAttribute("aria-label",(i+1)+" / "+SLIDES.length);
+    el.innerHTML=`<div class="bg" style="background-color:${s.tone};${s.img?`background-image:url('${s.img}')`:""}"></div>
+      ${s.img?'<div class="shade"></div>':`<div class="ph">${t("ph")}</div>`}
+      <div class="wrap cap">${i===0?`<h1>${h}</h1>`:`<h2>${h}</h2>`}<a class="btn" href="#shop">${b}</a></div>`;
+    hero.insertBefore(el,dots);
+    const d=document.createElement("button");
+    d.setAttribute("aria-label","Slide "+(i+1));
+    d.setAttribute("aria-current",i===slide);
+    d.onclick=()=>{go(i);restart()};
+    dots.appendChild(d);
   });
+}
+function go(n){
+  slide=(n+SLIDES.length)%SLIDES.length;
+  $$(".slide").forEach((s,i)=>s.classList.toggle("on",i===slide));
+  $$("#dots button").forEach((d,i)=>d.setAttribute("aria-current",i===slide));
+}
+function restart(){clearInterval(timer);if(!reduce)timer=setInterval(()=>go(slide+1),5500)}
+$(".prev").onclick=()=>{go(slide-1);restart()};
+$(".next").onclick=()=>{go(slide+1);restart()};
+$("#hero").addEventListener("mouseenter",()=>clearInterval(timer));
+$("#hero").addEventListener("mouseleave",restart);
+let tx=0;
+$("#hero").addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});
+$("#hero").addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>40){go(slide+(d<0?1:-1));restart()}});
 
-  /* ---------- i18n ---------- */
-  var currentLang = document.documentElement.lang === 'en' ? 'en' : 'cs';
-  var langButtons = document.querySelectorAll('.lang-switch button');
+/* products */
+const imgOrBlank=(p)=>p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy">`:`<div class="blank"></div>`;
+function renderGrid(){
+  $("#grid").innerHTML=PRODUCTS.map(p=>`
+    <button class="card" data-id="${p.id}" aria-label="${p.name}">
+      <div class="frame">${imgOrBlank(p)}</div>
+      <div class="n"><span>${p.name}</span><span>${money(p.price)}</span></div>
+      <div class="s">${t("soon")}</div>
+    </button>`).join("");
+}
+$("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openModal(+c.dataset.id)});
 
-  function applyLang(lang){
-    currentLang = lang;
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-cs][data-en]').forEach(function(el){
-      var val = el.getAttribute('data-' + lang);
-      if(val !== null){
-        if(val.indexOf('<') !== -1){ el.innerHTML = val; }
-        else { el.textContent = val; }
-      }
-    });
-    langButtons.forEach(function(btn){
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
+/* modal */
+function renderModal(){
+  const p=openProd;if(!p)return;
+  $("#mImg").innerHTML=imgOrBlank(p);
+  $("#mInfo").innerHTML=`<h3>${p.name}</h3>
+    <div style="font-weight:600">${money(p.price)}</div>
+    <div class="s" style="color:var(--mute);font-size:13px">${t("soon")}</div>
+    <div><div style="font-size:13px;margin-bottom:8px">${t("size")}</div>
+      <div class="sz">${p.sizes.map(s=>`<button data-size="${s}" aria-pressed="${s===selSize}">${s}</button>`).join("")}</div></div>
+    <div class="err" id="err" role="alert"></div>
+    <button class="btn dk" id="addBtn" style="margin-top:0">${t("add")}</button>`;
+}
+function openModal(id){
+  openProd=PRODUCTS.find(p=>p.id===id);selSize=null;renderModal();
+  $("#modal").classList.add("on");$("#ov").classList.add("on");$("#modal").setAttribute("aria-hidden","false");
+  setTimeout(()=>$("#modal .x").focus(),50);
+}
+$("#mInfo").addEventListener("click",e=>{
+  const s=e.target.closest("[data-size]");
+  if(s){selSize=s.dataset.size;renderModal();return}
+  if(e.target.id==="addBtn"){
+    if(!selSize){$("#err").textContent=t("pick");return}
+    const k=openProd.id+"-"+selSize, f=cart.find(i=>i.key===k);
+    f?f.qty++:cart.push({key:k,id:openProd.id,size:selSize,qty:1});
+    save();renderCart();
+    const c=$("#count");c.classList.remove("bump");void c.offsetWidth;c.classList.add("bump");
+    const b=$("#addBtn");b.textContent="✓ "+t("added");
+    setTimeout(()=>{closeAll();openCart()},600);
   }
-  langButtons.forEach(function(btn){
-    btn.addEventListener('click', function(){ applyLang(btn.getAttribute('data-lang')); });
-  });
+});
 
-  /* ---------- nav scroll state ---------- */
-  var nav = document.getElementById('nav');
-  function onScrollNav(){
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }
-  window.addEventListener('scroll', onScrollNav, {passive:true});
-  onScrollNav();
+/* cart */
+function renderCart(){
+  const n=cart.reduce((a,i)=>a+i.qty,0);
+  const c=$("#count");c.textContent=n;c.hidden=!n;
+  const body=$("#cartBody"), foot=$("#cartFoot");
+  if(!cart.length){body.innerHTML=`<p class="empty">${t("empty")}</p>`;foot.innerHTML="";return}
+  let sum=0;
+  body.innerHTML=cart.map(i=>{
+    const p=PRODUCTS.find(x=>x.id===i.id);sum+=p.price*i.qty;
+    return `<div class="row"><div class="th">${p.img?`<img src="${p.img}" alt="" style="width:100%;height:100%;object-fit:cover">`:""}</div>
+      <div class="i"><b>${p.name}</b>${t("size")}: ${i.size} · ${money(p.price)}<br>
+      <span class="q"><button data-q="-1" data-k="${i.key}" aria-label="−">−</button><span>${i.qty}</span><button data-q="1" data-k="${i.key}" aria-label="+">+</button></span>
+      <button class="rm" data-rm="${i.key}">${t("remove")}</button></div></div>`}).join("");
+  foot.innerHTML=`<div class="sub"><span>${t("sub")}</span><span>${money(sum)}</span></div>
+    <p class="note">${t("demo")}</p><button class="btn dk" disabled>${t("checkout")}</button>`;
+}
+$("#cartBody").addEventListener("click",e=>{
+  const q=e.target.closest("[data-q]"),r=e.target.closest("[data-rm]");
+  if(q){const i=cart.find(x=>x.key===q.dataset.k);i.qty+=+q.dataset.q;if(i.qty<1)cart=cart.filter(x=>x!==i)}
+  if(r)cart=cart.filter(x=>x.key!==r.dataset.rm);
+  save();renderCart();
+});
+function openCart(){$("#drawer").classList.add("on");$("#ov").classList.add("on");$("#drawer").setAttribute("aria-hidden","false");setTimeout(()=>$("#drawer [data-close]").focus(),50)}
+function closeAll(){["#drawer","#modal"].forEach(s=>{$(s).classList.remove("on");$(s).setAttribute("aria-hidden","true")});$("#ov").classList.remove("on")}
+$("#cartBtn").onclick=openCart;
+$("#ov").onclick=closeAll;
+$$("[data-close]").forEach(b=>b.onclick=closeAll);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
 
-  /* ---------- mobile menu ---------- */
-  var burger = document.getElementById('burger');
-  burger.addEventListener('click', function(){
-    var open = document.body.classList.toggle('menu-open');
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  document.querySelectorAll('.mobile-menu a').forEach(function(a){
-    a.addEventListener('click', function(){ document.body.classList.remove('menu-open'); });
-  });
+/* menu */
+$("#burger").onclick=()=>{const m=$("#mnav"),o=m.classList.toggle("open");$("#burger").setAttribute("aria-expanded",o)};
+$$("#mnav a").forEach(a=>a.onclick=()=>$("#mnav").classList.remove("open"));
 
-  /* ---------- cursor glow ---------- */
-  var glow = document.getElementById('glow');
-  var gx = -1000, gy = -1000, cx = -1000, cy = -1000;
-  if(!reduceMotion && window.matchMedia('(hover:hover)').matches){
-    window.addEventListener('mousemove', function(e){ gx = e.clientX; gy = e.clientY; }, {passive:true});
-    function raf(){
-      cx += (gx - cx) * 0.12;
-      cy += (gy - cy) * 0.12;
-      glow.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
-      requestAnimationFrame(raf);
-    }
-    raf();
-  }
+/* language + currency */
+function applyLang(){
+  document.documentElement.lang=lang;
+  $$("[data-t]").forEach(el=>el.textContent=t(el.dataset.t));
+  $$("[data-al]").forEach(el=>el.setAttribute("aria-label",t(el.dataset.al)));
+  $$("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
+  $$("[data-cur]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.cur===cur));
+  buildHero();renderGrid();renderCart();renderModal();
+}
+$$("[data-lang]").forEach(b=>b.onclick=()=>{lang=b.dataset.lang;save();applyLang()});
+$$("[data-cur]").forEach(b=>b.onclick=()=>{cur=b.dataset.cur;save();applyLang()});
 
-  /* ---------- hero parallax bg ---------- */
-  var heroBg = document.getElementById('heroBg');
-  if(!reduceMotion){
-    window.addEventListener('mousemove', function(e){
-      var px = (e.clientX / window.innerWidth - 0.5) * 24;
-      var py = (e.clientY / window.innerHeight - 0.5) * 24;
-      heroBg.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)';
-    }, {passive:true});
-  }
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.08});
+$$(".rv").forEach(el=>io.observe(el));
 
-  /* ---------- magnetic buttons ---------- */
-  if(!reduceMotion){
-    document.querySelectorAll('.btn').forEach(function(btn){
-      btn.addEventListener('mousemove', function(e){
-        var r = btn.getBoundingClientRect();
-        var mx = e.clientX - r.left - r.width/2;
-        var my = e.clientY - r.top - r.height/2;
-        btn.style.transform = 'translate(' + (mx*0.22) + 'px,' + (my*0.35) + 'px)';
-      });
-      btn.addEventListener('mouseleave', function(){
-        btn.style.transform = 'translate(0,0)';
-        btn.style.transition = 'transform .4s cubic-bezier(.16,.8,.24,1)';
-      });
-      btn.addEventListener('mouseenter', function(){ btn.style.transition = 'none'; });
-    });
-  }
-
-  /* ---------- smooth scroll (Lenis) + GSAP reveals ---------- */
-  function initMotion(){
-    var lenis = null;
-    if(window.Lenis && !reduceMotion){
-      lenis = new Lenis({ duration: 1.1, smoothWheel: true, easing: function(t){ return 1 - Math.pow(1 - t, 3); } });
-      function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
-      requestAnimationFrame(raf);
-      if(window.ScrollTrigger){
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
-      }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(function(a){
-      a.addEventListener('click', function(e){
-        var id = a.getAttribute('href');
-        if(id.length > 1){
-          var target = document.querySelector(id);
-          if(target){
-            e.preventDefault();
-            if(lenis){ lenis.scrollTo(target, {offset:-20}); }
-            else { target.scrollIntoView({behavior:'smooth'}); }
-          }
-        }
-      });
-    });
-
-    if(!window.gsap){ return; }
-    gsap.registerPlugin(window.ScrollTrigger);
-
-    gsap.utils.toArray('.reveal').forEach(function(el){
-      gsap.to(el, {
-        opacity:1, y:0, duration:1, ease:'power3.out',
-        scrollTrigger:{ trigger: el, start:'top 85%' }
-      });
-    });
-
-    gsap.utils.toArray('.h-lg, .eyebrow, .lede').forEach(function(el){
-      if(el.closest('.hero')) return;
-      gsap.fromTo(el, {opacity:0, y:24}, {
-        opacity:1, y:0, duration:.9, ease:'power3.out',
-        scrollTrigger:{ trigger: el, start:'top 88%' }
-      });
-    });
-
-    gsap.utils.toArray('.shop-card').forEach(function(card, i){
-      gsap.fromTo(card, {opacity:0, y:36}, {
-        opacity:1, y:0, duration:.8, delay: (i%4)*0.06, ease:'power3.out',
-        scrollTrigger:{ trigger: card, start:'top 92%' }
-      });
-    });
-  }
-
-  /* ---------- preloader ---------- */
-  var loader = document.getElementById('loader');
-  var pct = document.getElementById('loaderPct');
-  var p = 0;
-  var pctTimer = setInterval(function(){
-    p = Math.min(100, p + Math.round(Math.random()*14)+4);
-    pct.textContent = p + '%';
-    if(p >= 100){ clearInterval(pctTimer); }
-  }, 130);
-
-  function playHero(){
-    document.querySelectorAll('.hero-mark .ch').forEach(function(span){
-      requestAnimationFrame(function(){
-        span.style.transition = 'transform .9s cubic-bezier(.16,.8,.24,1), opacity .9s ease';
-        span.style.transform = 'translateY(0)';
-        span.style.opacity = '1';
-      });
-    });
-    var elems = ['.hero-eyebrow', '.hero-sub', '.hero-cta', '.hero-scroll'];
-    elems.forEach(function(sel, i){
-      var el = document.querySelector(sel);
-      if(!el) return;
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(18px)';
-      el.style.transition = 'opacity .8s ease, transform .8s cubic-bezier(.16,.8,.24,1)';
-      setTimeout(function(){
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      }, 550 + i*120);
-    });
-  }
-
-  window.addEventListener('load', function(){
-    setTimeout(function(){
-      loader.classList.add('is-done');
-      playHero();
-      initMotion();
-      if(window.ScrollTrigger){ setTimeout(function(){ ScrollTrigger.refresh(); }, 300); }
-    }, 900);
-  });
-
-  // Fallback in case load event already fired / is slow
-  setTimeout(function(){
-    if(!loader.classList.contains('is-done')){
-      loader.classList.add('is-done');
-      playHero();
-      initMotion();
-    }
-  }, 3500);
-
-})();
+$("#yr").textContent=new Date().getFullYear();
+applyLang();restart();
 </script>
-
 </body>
 </html>
