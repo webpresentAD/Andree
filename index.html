@@ -1,413 +1,461 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Temnak – Official Merch</title>
-<meta name="description" content="ANDRÉE – oficiální merch a streetwear od českého umělce. Official merch and streetwear by Czech artist Andrée.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TEMNAK — Engineered for the Unordinary</title>
+<meta name="description" content="TEMNAK — futuristic technical fashion. Form. Function. Identity." />
+<meta property="og:title" content="TEMNAK — Engineered for the Unordinary" />
+<meta property="og:description" content="Futuristic technical fashion. Form. Function. Identity." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
-:root{--bg:#fff;--fg:#000;--mute:#777;--line:#e4e4e4;--frame:#efefef;--hdr:56px;box-sizing:border-box}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#000;--fg:#fff;--mute:#999;--line:#262626;--frame:#161616}}
-*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:var(--hdr)}
-body{font-family:"Archivo",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-img{max-width:100%;display:block}
-:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
-.wrap{padding:0 clamp(16px,3vw,40px);max-width:1600px;margin:0 auto}
-.u{font-stretch:75%;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+  :root{
+    --bg:#050505; --bg-2:#0b0b0c; --fg:#F2F2F0; --muted:#858585; --line:#292929;
+    --accent:#304CFF; --accent-glow:rgba(48,76,255,.35);
+    --display:'Anton',sans-serif; --sans:'Space Grotesk',sans-serif; --mono:'JetBrains Mono',monospace;
+    --ease:cubic-bezier(.77,0,.18,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  ::selection{background:var(--accent);color:var(--fg)}
 
-/* header */
-header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
-.bar{height:var(--hdr);display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-stretch:62%;font-weight:900;font-size:26px;letter-spacing:.04em;line-height:1}
-nav.d{display:flex;gap:28px;align-items:center;font-stretch:75%;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.06em}
-nav.d a,.lang button{position:relative;padding:4px 0}
-nav.d a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s}
-nav.d a:hover::after{transform:scaleX(1)}
-.lang button{opacity:.4;transition:opacity .2s}
-.lang button[aria-pressed=true],.lang button:hover{opacity:1}
-.lang span{opacity:.4;margin:0 3px}
-.icons{display:flex;align-items:center;gap:6px}
-.ib{width:44px;height:44px;display:grid;place-items:center;position:relative}
-.ib svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6}
-.count{position:absolute;top:5px;right:3px;min-width:17px;height:17px;border-radius:9px;background:var(--fg);color:var(--bg);font-size:10px;font-weight:700;display:grid;place-items:center;padding:0 4px}
-.count[hidden]{display:none}
-.bump{animation:bump .4s}
-@keyframes bump{40%{transform:scale(1.35)}}
-.burger{display:none}
-.mnav{display:none;border-top:1px solid var(--line);padding:8px 0 16px}
-.mnav a,.mnav .lang{display:block;padding:12px 0;font-stretch:75%;font-weight:800;text-transform:uppercase;font-size:22px}
-.mnav.open{display:block;animation:fade .25s}
-@keyframes fade{from{opacity:0;transform:translateY(-6px)}}
-@media(max-width:760px){nav.d{display:none}.burger{display:grid}}
+  /* grain */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.06;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* hero */
-.hero{position:relative;height:min(82vh,820px);min-height:420px;background:#111;overflow:hidden;color:#fff}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;align-items:flex-end}
-.slide.on{opacity:1;z-index:1}
-.slide .bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);transition:transform 7s ease-out}
-.slide.on .bg{transform:scale(1)}
-.slide .ph{position:absolute;top:16px;left:clamp(16px,3vw,40px);font-size:11px;opacity:.55}
-.slide .shade{position:absolute;inset:0;background:rgba(0,0,0,.28)}
-.cap{position:relative;padding-bottom:clamp(56px,9vw,96px);width:100%}
-.cap h1,.cap h2{font-stretch:62%;font-weight:900;text-transform:uppercase;line-height:.88;font-size:clamp(52px,12vw,180px);letter-spacing:.01em}
-.btn{display:inline-block;margin-top:22px;padding:13px 26px;background:#fff;color:#000;font-stretch:75%;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:14px;border:1px solid #fff;transition:background .2s,color .2s}
-.btn:hover{background:transparent;color:#fff}
-.btn.dk{background:var(--fg);color:var(--bg);border-color:var(--fg);width:100%;text-align:center}
-.btn.dk:hover{background:transparent;color:var(--fg)}
-.btn[disabled]{opacity:.35;pointer-events:none}
-.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:48px;height:48px;display:grid;place-items:center;color:#fff;opacity:.75;transition:opacity .2s}
-.arrow:hover{opacity:1}
-.arrow svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.5}
-.prev{left:6px}.next{right:6px}
-.dots{position:absolute;z-index:3;right:clamp(16px,3vw,40px);bottom:24px;display:flex;gap:4px}
-.dots button{width:36px;height:24px;display:grid;align-items:center}
-.dots button::before{content:"";height:2px;background:rgba(255,255,255,.4);transition:background .3s}
-.dots button[aria-current=true]::before{background:#fff}
-@media(max-width:600px){.arrow{display:none}.hero{height:72vh}}
+  /* cursor */
+  .cursor{position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:var(--accent);
+    pointer-events:none;z-index:1000;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),background .3s;mix-blend-mode:screen;box-shadow:0 0 24px var(--accent-glow)}
+  .cursor.big{width:64px;height:64px;background:rgba(48,76,255,.18);border:1px solid var(--accent)}
+  @media (hover:none){.cursor{display:none}}
 
-/* sections */
-section{padding:clamp(40px,6vw,80px) 0}
-.sh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px}
-.sh h2{font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:clamp(34px,5vw,60px);line-height:1}
-.sh a{font-size:14px;border-bottom:1px solid currentColor;font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 12px}
-@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr);gap:32px 16px}}
-.card{text-align:left;display:block;width:100%}
-.frame{aspect-ratio:4/5;background:var(--frame);overflow:hidden;position:relative;display:grid;place-items:center}
-.frame img,.frame .blank{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.frame .blank{display:grid;place-items:center;color:var(--mute);font-size:12px}
-.card:hover .frame>*{transform:scale(1.04)}
-.card .n{margin-top:12px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;gap:8px}
-.card .s{color:var(--mute);font-size:13px}
-.rv{opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
-.rv.in{opacity:1;transform:none}
+  .mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .accent{color:var(--accent)}
 
-/* video */
-.video{border-top:1px solid var(--line)}
-.vid{aspect-ratio:16/9;width:100%;background:#000;max-width:1100px}
-.vid iframe{width:100%;height:100%;border:0}
+  /* NAV */
+  nav{position:fixed;inset:0 0 auto 0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:22px 36px;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
+  nav.scrolled{background:rgba(5,5,5,.75);backdrop-filter:blur(14px);border-color:var(--line)}
+  nav .links{display:flex;gap:28px}
+  nav .links a,nav .right a,nav .right button{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+  nav a:hover,nav button:hover{color:var(--fg)}
+  .logo{font-family:var(--display);font-size:22px;letter-spacing:.38em;padding-left:.38em}
+  nav .right{display:flex;gap:28px;justify-content:flex-end;align-items:center}
+  .cart-count{display:inline-grid;place-items:center;min-width:18px;height:18px;margin-left:6px;border-radius:9px;background:var(--accent);color:var(--fg);font-size:10px}
 
-/* footer */
-footer{border-top:1px solid var(--line);padding:40px 0 24px}
-.fg{display:grid;gap:28px;grid-template-columns:1fr}
-@media(min-width:760px){.fg{grid-template-columns:2fr 1fr 1fr}}
-.fg .logo{font-size:44px}
-.fg ul{list-style:none;font-size:15px}
-.fg li{padding:2px 0}
-.fg a:hover{text-decoration:underline}
-.fb{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:44px;font-size:12px;color:var(--mute)}
-.cur button{padding:6px 2px;opacity:.5;font-weight:600;color:var(--fg)}
-.cur button[aria-pressed=true]{opacity:1;border-bottom:1px solid var(--fg)}
-.cur span{margin:0 4px}
+  /* HERO */
+  .hero{position:relative;height:100vh;min-height:720px;overflow:hidden;display:grid;place-items:center}
+  .hero .grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:80px 80px;opacity:.25;mask-image:radial-gradient(ellipse at center,#000 20%,transparent 70%)}
+  .hero .glow{position:absolute;width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,var(--accent-glow),transparent 60%);
+    filter:blur(40px);opacity:0;animation:fadeIn 2s .9s forwards}
+  .hero-word{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--display);
+    font-size:clamp(120px,24vw,420px);line-height:.8;letter-spacing:.5em;color:transparent;-webkit-text-stroke:1px #2a2a2a;
+    white-space:nowrap;opacity:0;animation:wordIn 1.4s var(--ease) .1s forwards;user-select:none;padding-left:.5em}
+  .hero-img{position:relative;z-index:2;height:78vh;max-height:820px;aspect-ratio:3/4;clip-path:inset(100% 0 0 0);
+    animation:mask 1.3s var(--ease) .6s forwards}
+  .hero-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.6) contrast(1.15) brightness(.85);transform:scale(1.15);animation:settle 2.2s var(--ease) .6s forwards}
+  .hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--bg)),linear-gradient(120deg,rgba(48,76,255,.28),transparent 45%);mix-blend-mode:normal}
+  .lines span{position:absolute;background:var(--line);z-index:1}
+  .lines .h{height:1px;left:0;right:0;transform:scaleX(0);animation:lineX 1.2s var(--ease) .4s forwards}
+  .lines .v{width:1px;top:0;bottom:0;transform:scaleY(0);animation:lineY 1.2s var(--ease) .4s forwards}
+  .anno{position:absolute;z-index:3;display:flex;align-items:center;gap:10px;opacity:0;animation:up .7s var(--ease) forwards}
+  .anno i{width:7px;height:7px;border:1px solid var(--accent);border-radius:50%;box-shadow:0 0 12px var(--accent)}
+  .anno b{display:block;width:60px;height:1px;background:var(--line)}
+  .anno .t{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;line-height:1.6}
+  .anno .t em{font-style:normal;color:var(--muted)}
+  .hero-head{position:absolute;left:36px;bottom:48px;z-index:4;max-width:520px}
+  .hero-head h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,5.4vw,84px);line-height:.92;text-transform:uppercase;letter-spacing:.01em}
+  .hero-head h1 span{display:block;overflow:hidden}
+  .hero-head h1 span i{display:block;font-style:normal;transform:translateY(110%);animation:rise .9s var(--ease) forwards}
+  .hero-meta{position:absolute;right:36px;bottom:48px;z-index:4;text-align:right;opacity:0;animation:up .8s var(--ease) 2s forwards}
+  .hero-meta p{margin-bottom:22px}
+  .hero-top{position:absolute;top:96px;left:36px;right:36px;display:flex;justify-content:space-between;z-index:4;opacity:0;animation:fadeIn 1s .7s forwards}
 
-/* overlay panels */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
-.ov.on{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg);z-index:100;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column}
-.drawer.on{transform:none}
-.dh{display:flex;justify-content:space-between;align-items:center;padding:8px 8px 8px 20px;border-bottom:1px solid var(--line)}
-.dh h3{font-stretch:75%;font-weight:800;text-transform:uppercase;font-size:20px}
-.db{flex:1;overflow:auto;padding:8px 20px}
-.df{padding:20px;border-top:1px solid var(--line)}
-.row{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
-.row .th{width:72px;aspect-ratio:4/5;background:var(--frame);flex:none}
-.row .i{flex:1;font-size:14px}
-.row .i b{display:block;font-size:15px}
-.q{display:inline-flex;align-items:center;border:1px solid var(--line);margin-top:8px}
-.q button{width:32px;height:32px}
-.q span{min-width:28px;text-align:center}
-.rm{font-size:12px;color:var(--mute);text-decoration:underline;margin-left:10px}
-.sub{display:flex;justify-content:space-between;font-weight:700;margin-bottom:6px}
-.note{font-size:12px;color:var(--mute);margin-bottom:14px}
-.empty{padding:48px 0;text-align:center;color:var(--mute)}
-.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;pointer-events:none;opacity:0;transition:opacity .3s}
-.modal.on{opacity:1;pointer-events:auto}
-.mb{background:var(--bg);width:min(900px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1fr;transform:translateY(12px);transition:transform .3s;position:relative}
-.modal.on .mb{transform:none}
-@media(min-width:760px){.mb{grid-template-columns:1fr 1fr}}
-.mi{padding:24px;display:flex;flex-direction:column;gap:14px}
-.mi h3{font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:40px;line-height:1}
-.sz{display:flex;gap:8px;flex-wrap:wrap}
-.sz button{min-width:48px;height:44px;border:1px solid var(--line);font-weight:600;transition:border-color .2s,background .2s,color .2s}
-.sz button:hover{border-color:var(--fg)}
-.sz button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.x{position:absolute;top:4px;right:4px;z-index:2}
-.err{color:#c33;font-size:13px;min-height:18px}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}.rv{opacity:1;transform:none}}
+  .btn{display:inline-flex;align-items:center;gap:14px;padding:16px 26px;border:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    position:relative;overflow:hidden;transition:border-color .4s,color .4s}
+  .btn::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1}
+  .btn:hover{border-color:var(--accent)}
+  .btn:hover::before{transform:translateY(0)}
+  .btn .arr{transition:transform .4s var(--ease)}
+  .btn:hover .arr{transform:translateX(5px)}
+  .btn.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  .btn.solid:hover{color:var(--fg)}
+
+  @keyframes wordIn{from{opacity:0;letter-spacing:.9em}to{opacity:1;letter-spacing:.5em}}
+  @keyframes mask{to{clip-path:inset(0 0 0 0)}}
+  @keyframes settle{to{transform:scale(1)}}
+  @keyframes lineX{to{transform:scaleX(1)}}
+  @keyframes lineY{to{transform:scaleY(1)}}
+  @keyframes fadeIn{to{opacity:1}}
+  @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes rise{to{transform:none}}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* MARQUEE */
+  .marquee{border-block:1px solid var(--line);overflow:hidden;padding:18px 0;white-space:nowrap}
+  .marquee div{display:inline-flex;gap:60px;animation:marquee 30s linear infinite}
+  .marquee span{font-family:var(--display);font-size:28px;text-transform:uppercase;letter-spacing:.06em;color:#2f2f2f}
+  .marquee span.a{color:var(--fg)}
+
+  /* SECTION HEAD */
+  section{position:relative}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;padding:120px 36px 48px;gap:40px;flex-wrap:wrap}
+  .sec-head h2{font-family:var(--display);font-weight:400;font-size:clamp(48px,7vw,120px);line-height:.88;text-transform:uppercase}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* GALLERY */
+  .gallery-wrap{position:relative}
+  .gallery{display:flex;gap:2px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 36px 20px;scrollbar-width:none;cursor:grab}
+  .gallery::-webkit-scrollbar{display:none}
+  .card{flex:0 0 min(440px,80vw);scroll-snap-align:start;position:relative;background:var(--bg-2);border:1px solid var(--line);
+    clip-path:inset(0 0 100% 0);transition:clip-path 1.1s var(--ease),border-color .4s}
+  .card.in{clip-path:inset(0 0 0 0)}
+  .card:hover{border-color:var(--accent)}
+  .card .img{aspect-ratio:3/4;overflow:hidden;position:relative}
+  .card .img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5) contrast(1.1) brightness(.85);transition:transform 1.2s var(--ease),filter .6s}
+  .card:hover .img img{transform:scale(1.07);filter:grayscale(0) contrast(1.1) brightness(.95)}
+  .card .img::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(48,76,255,.25),transparent 50%);opacity:0;transition:opacity .6s}
+  .card:hover .img::after{opacity:1}
+  .card .tag{position:absolute;top:16px;left:16px;z-index:2}
+  .card .idx{position:absolute;top:16px;right:16px;z-index:2}
+  .card .info{display:flex;justify-content:space-between;align-items:flex-end;padding:20px;border-top:1px solid var(--line)}
+  .card h3{font-family:var(--display);font-weight:400;font-size:26px;text-transform:uppercase;letter-spacing:.02em}
+  .card .price{font-family:var(--mono);font-size:13px}
+  .card .add{position:absolute;left:20px;right:20px;bottom:86px;z-index:3;opacity:0;transform:translateY(10px);transition:all .45s var(--ease);justify-content:center;background:rgba(5,5,5,.8);backdrop-filter:blur(6px)}
+  .card:hover .add{opacity:1;transform:none}
+  .gallery-ctrl{display:flex;justify-content:space-between;align-items:center;padding:24px 36px 0}
+  .progress{flex:1;height:1px;background:var(--line);margin:0 32px;position:relative}
+  .progress i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .arrows{display:flex;gap:8px}
+  .arrows button{width:48px;height:48px;border:1px solid var(--line);font-size:16px;transition:border-color .3s,background .3s}
+  .arrows button:hover{border-color:var(--accent);background:var(--accent)}
+
+  /* EDITORIAL */
+  .editorial{display:grid;grid-template-columns:1.2fr 1fr;border-top:1px solid var(--line);margin-top:120px}
+  .editorial .pic{position:relative;min-height:90vh;overflow:hidden;border-right:1px solid var(--line)}
+  .editorial .pic img{position:absolute;inset:0;width:100%;height:120%;object-fit:cover;filter:grayscale(1) contrast(1.2) brightness(.7)}
+  .editorial .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(48,76,255,.35),transparent 50%)}
+  .editorial .txt{padding:80px 56px;display:flex;flex-direction:column;justify-content:space-between;gap:60px}
+  .editorial h2{font-family:var(--display);font-weight:400;font-size:clamp(44px,5vw,88px);line-height:.9;text-transform:uppercase}
+  .editorial p.lead{font-size:17px;line-height:1.65;color:var(--muted);max-width:440px}
+  .specs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .specs div{padding:22px 0;border-bottom:1px solid var(--line)}
+  .specs div:nth-child(odd){padding-right:20px;border-right:1px solid var(--line)}
+  .specs div:nth-child(even){padding-left:20px}
+  .specs strong{display:block;font-family:var(--display);font-weight:400;font-size:34px;margin-top:6px}
+
+  /* MANIFESTO */
+  .manifesto{padding:160px 36px;text-align:center;overflow:hidden}
+  .manifesto h2{font-family:var(--display);font-weight:400;font-size:clamp(48px,9vw,170px);line-height:.88;text-transform:uppercase}
+  .manifesto h2 .o{color:transparent;-webkit-text-stroke:1px var(--fg)}
+  .manifesto h2 .b{color:var(--accent);text-shadow:0 0 40px var(--accent-glow)}
+
+  /* NEWSLETTER / FOOTER */
+  .join{display:grid;grid-template-columns:1fr 1fr;border-block:1px solid var(--line)}
+  .join>div{padding:80px 36px}
+  .join>div:first-child{border-right:1px solid var(--line)}
+  .join h3{font-family:var(--display);font-weight:400;font-size:clamp(36px,4vw,64px);text-transform:uppercase;line-height:.95}
+  .join form{display:flex;border-bottom:1px solid var(--line);margin-top:40px}
+  .join input{flex:1;background:none;border:0;outline:0;color:var(--fg);font-family:var(--mono);font-size:13px;padding:18px 0;letter-spacing:.1em}
+  .join input::placeholder{color:var(--muted)}
+  .join form button{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  footer{padding:60px 36px 30px}
+  footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:80px}
+  footer ul{list-style:none;display:grid;gap:12px;margin-top:18px}
+  footer li a{font-size:14px;color:var(--fg);opacity:.8;transition:opacity .2s,color .2s}
+  footer li a:hover{opacity:1;color:var(--accent)}
+  footer .big{font-family:var(--display);font-size:22vw;line-height:.75;letter-spacing:.06em;text-align:center;color:transparent;-webkit-text-stroke:1px var(--line);user-select:none}
+  footer .bottom{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px;margin-top:30px}
+
+  /* CART DRAWER */
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg-2);border-left:1px solid var(--line);z-index:60;
+    transform:translateX(100%);transition:transform .6s var(--ease);display:flex;flex-direction:column}
+  .drawer.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:55;opacity:0;pointer-events:none;transition:opacity .4s}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .drawer header{display:flex;justify-content:space-between;align-items:center;padding:24px;border-bottom:1px solid var(--line)}
+  .drawer .items{flex:1;overflow:auto;padding:12px 24px}
+  .drawer .item{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+  .drawer .item img{width:64px;height:80px;object-fit:cover;filter:grayscale(.4)}
+  .drawer .item h4{font-family:var(--display);font-weight:400;font-size:18px;text-transform:uppercase}
+  .drawer footer{padding:24px;border-top:1px solid var(--line)}
+  .drawer .total{display:flex;justify-content:space-between;margin-bottom:18px}
+  .drawer .btn{width:100%;justify-content:center}
+  .empty{padding:40px 0;text-align:center}
+
+  .toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,20px);opacity:0;z-index:70;padding:14px 22px;background:var(--bg-2);border:1px solid var(--accent);
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;transition:all .4s var(--ease)}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media (max-width:900px){
+    nav{grid-template-columns:auto 1fr;padding:18px 20px}
+    nav .links{display:none}
+    .hero-top{left:20px;right:20px}
+    .hero-head{left:20px;bottom:120px}
+    .hero-meta{left:20px;right:auto;text-align:left;bottom:32px}
+    .hero-meta p{display:none}
+    .anno{display:none}
+    .hero-img{height:62vh}
+    .sec-head,.gallery,.gallery-ctrl,.manifesto,footer{padding-left:20px;padding-right:20px}
+    .editorial,.join{grid-template-columns:1fr}
+    .editorial .pic{min-height:60vh;border-right:0;border-bottom:1px solid var(--line)}
+    .editorial .txt{padding:56px 20px}
+    .join>div{padding:56px 20px}
+    .join>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+    footer .cols{grid-template-columns:1fr 1fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
+<div class="cursor" id="cursor"></div>
 
-<header>
-  <div class="wrap">
-    <div class="bar">
-      <a href="#top" class="logo" aria-label="TEMNAK">TEMNAK</a>
-      <nav class="d" aria-label="Main">
-        <a href="#shop" data-t="nav_shop"></a>
-        <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">YouTube</a>
-        <span class="lang"><button data-lang="cs" aria-pressed="true">CS</button><span>/</span><button data-lang="en" aria-pressed="false">EN</button></span>
-      </nav>
-      <div class="icons">
-        <button class="ib" id="cartBtn" data-al="cart" aria-label="Cart">
-          <svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-          <span class="count" id="count" hidden>0</span>
-        </button>
-        <button class="ib burger" id="burger" aria-expanded="false" aria-controls="mnav" data-al="menu" aria-label="Menu">
-          <svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="mnav" id="mnav">
-      <a href="#shop" data-t="nav_shop"></a>
-      <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">YouTube</a>
-      <span class="lang"><button data-lang="cs" aria-pressed="true">CS</button><span>/</span><button data-lang="en" aria-pressed="false">EN</button></span>
-    </div>
+<nav id="nav">
+  <div class="links">
+    <a href="#collection">Collection</a>
+    <a href="#lab">Lab</a>
+    <a href="#manifesto">Manifesto</a>
+  </div>
+  <a href="#" class="logo">TEMNAK</a>
+  <div class="right">
+    <a href="#join">Account</a>
+    <button id="cartBtn">Cart<span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="grid-bg"></div>
+  <div class="lines">
+    <span class="h" style="top:22%"></span>
+    <span class="h" style="bottom:18%"></span>
+    <span class="v" style="left:22%"></span>
+    <span class="v" style="right:22%"></span>
+  </div>
+  <div class="glow"></div>
+  <div class="hero-word">TEMNAK</div>
+
+  <div class="hero-top">
+    <span class="mono">SS—26 / Drop 001</span>
+    <span class="mono">42.6977° N — 23.3219° E</span>
+    <span class="mono"><span class="accent">●</span> System online</span>
+  </div>
+
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1200&q=80" alt="TEMNAK technical jacket" />
+  </div>
+
+  <div class="anno" style="top:30%;left:calc(50% - 360px);animation-delay:1.4s">
+    <div class="t">Shell<br><em>3L Nylon Ripstop</em></div><b></b><i></i>
+  </div>
+  <div class="anno" style="top:44%;left:calc(50% + 170px);animation-delay:1.6s">
+    <i></i><b></b><div class="t">Hood<br><em>Articulated / Storm</em></div>
+  </div>
+  <div class="anno" style="top:64%;left:calc(50% - 340px);animation-delay:1.8s">
+    <div class="t">Zip<br><em>Waterproof YKK</em></div><b></b><i></i>
+  </div>
+
+  <div class="hero-head">
+    <span class="mono" style="display:block;margin-bottom:18px;opacity:0;animation:fadeIn .8s 1.6s forwards">[ 001 ] — Form. Function. Identity.</span>
+    <h1>
+      <span><i style="animation-delay:1.7s">Engineered</i></span>
+      <span><i style="animation-delay:1.8s">for the</i></span>
+      <span><i style="animation-delay:1.9s" class="accent">unordinary.</i></span>
+    </h1>
+  </div>
+  <div class="hero-meta">
+    <p class="mono">Technical outerwear<br>built in limited runs.</p>
+    <a href="#collection" class="btn solid">Explore collection <span class="arr">→</span></a>
   </div>
 </header>
 
-<main id="top">
-  <!-- HERO -->
-  <div class="hero" id="hero" role="region" aria-roledescription="carousel" aria-label="TEMNAK">
-    <button class="arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
-    <button class="arrow next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
-    <div class="dots" id="dots"></div>
+<div class="marquee"><div id="marquee"></div></div>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="sec-head reveal">
+    <h2>The<br>Collection</h2>
+    <div style="max-width:320px">
+      <p class="mono" style="margin-bottom:12px">[ 002 ] — 06 Pieces</p>
+      <p style="color:var(--muted);line-height:1.6">Each garment is designed as a system: modular, weather-ready and cut for movement.</p>
+    </div>
   </div>
-
-  <!-- PRODUCTS -->
-  <section id="shop">
-    <div class="wrap">
-      <div class="sh rv"><h2 data-t="shop_h"></h2></div>
-      <div class="grid rv" id="grid"></div>
-    </div>
-  </section>
-
-  <!-- VIDEO -->
-  <section class="video">
-    <div class="wrap">
-      <div class="sh rv">
-        <h2 data-t="video_h"></h2>
-        <a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener" data-t="video_link"></a>
-      </div>
-      <div class="vid rv">
-        <iframe src="https://www.youtube.com/embed/5QwvGg13Xnk?start=4" title="ANDRÉE – YouTube" loading="lazy"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <div class="gallery-wrap">
+    <div class="gallery" id="gallery"></div>
+    <div class="gallery-ctrl">
+      <span class="mono" id="counter">01 / 06</span>
+      <div class="progress"><i id="bar"></i></div>
+      <div class="arrows">
+        <button id="prev" aria-label="Previous">←</button>
+        <button id="next" aria-label="Next">→</button>
       </div>
     </div>
-  </section>
-</main>
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<section class="editorial" id="lab">
+  <div class="pic"><img id="parallax" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=80" alt="TEMNAK editorial" /></div>
+  <div class="txt">
+    <div class="reveal">
+      <p class="mono" style="margin-bottom:24px">[ 003 ] — The Lab</p>
+      <h2>Built in<br>the dark.<br><span class="accent">Worn</span> in<br>the light.</h2>
+    </div>
+    <p class="lead reveal">TEMNAK means darkness. We design from that starting point: black canvases, precise construction and materials tested for city weather. Nothing extra. Nothing missing.</p>
+    <div class="specs reveal">
+      <div><span class="mono">Waterproof</span><strong>20K MM</strong></div>
+      <div><span class="mono">Breathability</span><strong>15K G</strong></div>
+      <div><span class="mono">Run size</span><strong>200 PCS</strong></div>
+      <div><span class="mono">Seams</span><strong>100% TAPED</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <p class="mono reveal" style="margin-bottom:40px">[ 004 ] — Manifesto</p>
+  <h2 class="reveal">Less <span class="o">but</span><br>better. <span class="b">Darker</span><br><span class="o">by design.</span></h2>
+</section>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <div>
+    <p class="mono" style="margin-bottom:20px">[ 005 ] — Access</p>
+    <h3>Get early access<br>to every drop.</h3>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:flex-end">
+    <p style="color:var(--muted);line-height:1.6;max-width:420px">Limited runs sell out. Subscribers get 24 hours of early access before each release.</p>
+    <form id="joinForm">
+      <input type="email" required placeholder="EMAIL ADDRESS" />
+      <button type="submit">Subscribe →</button>
+    </form>
+  </div>
+</section>
 
 <footer>
-  <div class="wrap">
-    <div class="fg">
-      <div><div class="logo">ANDRÉE</div></div>
-      <div>
-        <ul>
-          <li><a href="https://www.instagram.com/andreedrksd/?igshid=9919x2zau0o4&fbclid=IwAR0NL1OPqTJpmo6j_nB-RySkfmEQ77EPwTYMu2_qwgehCDyo2qLwMijjRgw" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.youtube.com/@ANDREEDRKSD" target="_blank" rel="noopener">YouTube</a></li>
-        </ul>
-      </div>
-      <div>
-        <ul>
-          <li><a href="mailto:email@andree.cz">email@andree.cz</a></li>
-        </ul>
-      </div>
+  <div class="cols">
+    <div>
+      <div class="logo" style="padding-left:0">TEMNAK</div>
+      <p class="mono" style="margin-top:18px;line-height:1.8">Engineered for the unordinary.<br>Sofia — Worldwide.</p>
     </div>
-    <div class="fb">
-      <div class="cur" role="group" aria-label="Currency">
-        <button data-cur="CZK" aria-pressed="true">CZK</button><span>/</span><button data-cur="EUR" aria-pressed="false">EUR</button>
-      </div>
-      <div>© <span id="yr"></span> ANDRÉE</div>
-      <div>made by <a href="#top" style="text-decoration:underline">Donda Digital</a></div>
-    </div>
+    <div><span class="mono">Shop</span><ul><li><a href="#collection">Outerwear</a></li><li><a href="#collection">Tops</a></li><li><a href="#collection">Bottoms</a></li></ul></div>
+    <div><span class="mono">Info</span><ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Size guide</a></li></ul></div>
+    <div><span class="mono">Social</span><ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="#">Contact</a></li></ul></div>
   </div>
+  <div class="big">TEMNAK</div>
+  <div class="bottom"><span class="mono">© 2026 TEMNAK</span><span class="mono">All rights reserved</span></div>
 </footer>
 
-<!-- Cart drawer -->
-<div class="ov" id="ov"></div>
-<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Cart">
-  <div class="dh"><h3 data-t="cart_h"></h3><button class="ib" data-close data-al="close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-  <div class="db" id="cartBody"></div>
-  <div class="df" id="cartFoot"></div>
+<!-- CART -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Cart">
+  <header><span class="mono" style="color:var(--fg)">Cart [<span id="cartCount2">0</span>]</span><button id="closeCart" class="mono">Close ✕</button></header>
+  <div class="items" id="items"></div>
+  <footer>
+    <div class="total"><span class="mono">Total</span><span style="font-family:var(--mono)" id="total">€0</span></div>
+    <button class="btn solid" id="checkout">Checkout <span class="arr">→</span></button>
+  </footer>
 </aside>
-
-<!-- Product modal -->
-<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
-  <div class="mb">
-    <button class="ib x" data-close data-al="close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <div class="frame" style="aspect-ratio:auto;min-height:320px" id="mImg"></div>
-    <div class="mi" id="mInfo"></div>
-  </div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-/* ============ EDIT HERE ============ */
-const EUR_RATE = 25;               // 1 EUR = 25 CZK (update as needed)
-const SLIDES = [                   // replace img with your photo URL / path
-  {img:"", tone:"#1a1a1a", cs:["Nový drop","Objevit drop"], en:["New drop","Discover the drop"]},
-  {img:"", tone:"#2a2a2a", cs:["Andrée","Nakupovat"],        en:["Andrée","Shop now"]},
-  {img:"", tone:"#0f0f0f", cs:["Merch","Nakupovat"],         en:["Merch","Shop now"]}
+const products = [
+  {name:"Void Shell",type:"Technical Jacket",price:289,img:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=900&q=80"},
+  {name:"Null Hoodie",type:"Heavyweight Hoodie",price:149,img:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=900&q=80"},
+  {name:"Axis Cargo",type:"Utility Pant",price:179,img:"https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=900&q=80"},
+  {name:"Shade Tee",type:"Boxy Tee",price:69,img:"https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=900&q=80"},
+  {name:"Strata Vest",type:"Modular Vest",price:199,img:"https://images.unsplash.com/photo-1608063615781-e2ef8c73d114?w=900&q=80"},
+  {name:"Eclipse Parka",type:"Insulated Parka",price:349,img:"https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=900&q=80"}
 ];
-const PRODUCTS = [                 // price in CZK; img = product photo URL
-  {id:1,name:"Produkt 1",price:0,img:"",sizes:["S","M","L","XL"]},
-  {id:2,name:"Produkt 2",price:0,img:"",sizes:["S","M","L","XL"]},
-  {id:3,name:"Produkt 3",price:0,img:"",sizes:["S","M","L","XL"]},
-  {id:4,name:"Produkt 4",price:0,img:"",sizes:["S","M","L","XL"]}
-];
-/* =================================== */
+const $ = s => document.querySelector(s);
 
-const T={
-cs:{nav_shop:"Shop",shop_h:"Nejnovější drop",video_h:"Nejnovější video",video_link:"Navštívit YouTube",
- soon:"Připravujeme",size:"Velikost",pick:"Vyberte velikost",add:"Přidat do košíku",added:"Přidáno",cart_h:"Košík",
- empty:"Váš košík je prázdný.",sub:"Mezisoučet",checkout:"Pokladna (brzy)",demo:"Ukázkový košík – platby zatím nejsou aktivní.",
- remove:"Odebrat",ph:"Zástupný obrázek – nahraďte fotografií",cart:"Košík",menu:"Menu",close:"Zavřít"},
-en:{nav_shop:"Shop",shop_h:"Latest drop",video_h:"Latest video",video_link:"Visit YouTube",
- soon:"Coming soon",size:"Size",pick:"Select a size",add:"Add to cart",added:"Added",cart_h:"Cart",
- empty:"Your cart is empty.",sub:"Subtotal",checkout:"Checkout (soon)",demo:"Demo cart – payments are not active yet.",
- remove:"Remove",ph:"Placeholder image – replace with a photo",cart:"Cart",menu:"Menu",close:"Close"}};
+// marquee
+const words = ["Form","Function","Identity","Engineered","Unordinary","Temnak"];
+const row = words.map((w,i)=>`<span class="${i%2?'':'a'}">${w}</span><span>✦</span>`).join("");
+$("#marquee").innerHTML = row + row;
 
-const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
-let lang="cs", cur="CZK", cart=[], slide=0, timer, openProd=null, selSize=null;
-try{lang=localStorage.getItem("a_lang")||"cs";cur=localStorage.getItem("a_cur")||"CZK";cart=JSON.parse(localStorage.getItem("a_cart")||"[]")}catch(e){}
-const t=k=>T[lang][k];
-const money=n=>cur==="CZK"?n.toFixed(2)+" CZK":(n/EUR_RATE).toFixed(2)+" EUR";
-const save=()=>{try{localStorage.setItem("a_lang",lang);localStorage.setItem("a_cur",cur);localStorage.setItem("a_cart",JSON.stringify(cart))}catch(e){}};
-const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+// gallery
+const g = $("#gallery");
+g.innerHTML = products.map((p,i)=>`
+  <article class="card" style="transition-delay:${i*.08}s">
+    <div class="img">
+      <span class="mono tag">${p.type}</span>
+      <span class="mono idx">${String(i+1).padStart(2,"0")}</span>
+      <img src="${p.img}" alt="${p.name}" loading="lazy" />
+    </div>
+    <button class="btn add" data-i="${i}">Add to cart <span class="arr">+</span></button>
+    <div class="info"><div><span class="mono">TMK—${String(i+1).padStart(3,"0")}</span><h3>${p.name}</h3></div><span class="price">€${p.price}</span></div>
+  </article>`).join("");
 
-/* hero */
-function buildHero(){
-  $$(".slide").forEach(s=>s.remove());
-  const hero=$("#hero"), dots=$("#dots");
-  dots.innerHTML="";
-  SLIDES.forEach((s,i)=>{
-    const [h,b]=s[lang];
-    const el=document.createElement("div");
-    el.className="slide"+(i===slide?" on":"");
-    el.setAttribute("role","group");el.setAttribute("aria-label",(i+1)+" / "+SLIDES.length);
-    el.innerHTML=`<div class="bg" style="background-color:${s.tone};${s.img?`background-image:url('${s.img}')`:""}"></div>
-      ${s.img?'<div class="shade"></div>':`<div class="ph">${t("ph")}</div>`}
-      <div class="wrap cap">${i===0?`<h1>${h}</h1>`:`<h2>${h}</h2>`}<a class="btn" href="#shop">${b}</a></div>`;
-    hero.insertBefore(el,dots);
-    const d=document.createElement("button");
-    d.setAttribute("aria-label","Slide "+(i+1));
-    d.setAttribute("aria-current",i===slide);
-    d.onclick=()=>{go(i);restart()};
-    dots.appendChild(d);
-  });
-}
-function go(n){
-  slide=(n+SLIDES.length)%SLIDES.length;
-  $$(".slide").forEach((s,i)=>s.classList.toggle("on",i===slide));
-  $$("#dots button").forEach((d,i)=>d.setAttribute("aria-current",i===slide));
-}
-function restart(){clearInterval(timer);if(!reduce)timer=setInterval(()=>go(slide+1),5500)}
-$(".prev").onclick=()=>{go(slide-1);restart()};
-$(".next").onclick=()=>{go(slide+1);restart()};
-$("#hero").addEventListener("mouseenter",()=>clearInterval(timer));
-$("#hero").addEventListener("mouseleave",restart);
-let tx=0;
-$("#hero").addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});
-$("#hero").addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>40){go(slide+(d<0?1:-1));restart()}});
-
-/* products */
-const imgOrBlank=(p)=>p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy">`:`<div class="blank"></div>`;
-function renderGrid(){
-  $("#grid").innerHTML=PRODUCTS.map(p=>`
-    <button class="card" data-id="${p.id}" aria-label="${p.name}">
-      <div class="frame">${imgOrBlank(p)}</div>
-      <div class="n"><span>${p.name}</span><span>${money(p.price)}</span></div>
-      <div class="s">${t("soon")}</div>
-    </button>`).join("");
-}
-$("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openModal(+c.dataset.id)});
-
-/* modal */
-function renderModal(){
-  const p=openProd;if(!p)return;
-  $("#mImg").innerHTML=imgOrBlank(p);
-  $("#mInfo").innerHTML=`<h3>${p.name}</h3>
-    <div style="font-weight:600">${money(p.price)}</div>
-    <div class="s" style="color:var(--mute);font-size:13px">${t("soon")}</div>
-    <div><div style="font-size:13px;margin-bottom:8px">${t("size")}</div>
-      <div class="sz">${p.sizes.map(s=>`<button data-size="${s}" aria-pressed="${s===selSize}">${s}</button>`).join("")}</div></div>
-    <div class="err" id="err" role="alert"></div>
-    <button class="btn dk" id="addBtn" style="margin-top:0">${t("add")}</button>`;
-}
-function openModal(id){
-  openProd=PRODUCTS.find(p=>p.id===id);selSize=null;renderModal();
-  $("#modal").classList.add("on");$("#ov").classList.add("on");$("#modal").setAttribute("aria-hidden","false");
-  setTimeout(()=>$("#modal .x").focus(),50);
-}
-$("#mInfo").addEventListener("click",e=>{
-  const s=e.target.closest("[data-size]");
-  if(s){selSize=s.dataset.size;renderModal();return}
-  if(e.target.id==="addBtn"){
-    if(!selSize){$("#err").textContent=t("pick");return}
-    const k=openProd.id+"-"+selSize, f=cart.find(i=>i.key===k);
-    f?f.qty++:cart.push({key:k,id:openProd.id,size:selSize,qty:1});
-    save();renderCart();
-    const c=$("#count");c.classList.remove("bump");void c.offsetWidth;c.classList.add("bump");
-    const b=$("#addBtn");b.textContent="✓ "+t("added");
-    setTimeout(()=>{closeAll();openCart()},600);
-  }
+const step = () => g.querySelector(".card").offsetWidth + 2;
+$("#next").onclick = () => g.scrollBy({left:step(),behavior:"smooth"});
+$("#prev").onclick = () => g.scrollBy({left:-step(),behavior:"smooth"});
+g.addEventListener("scroll",()=>{
+  const max = g.scrollWidth - g.clientWidth;
+  const r = max ? g.scrollLeft/max : 0;
+  $("#bar").style.width = (r*100)+"%";
+  const idx = Math.min(products.length, Math.round(g.scrollLeft/step())+1);
+  $("#counter").textContent = `${String(idx).padStart(2,"0")} / ${String(products.length).padStart(2,"0")}`;
 });
+// drag scroll
+let down=false,sx=0,sl=0;
+g.addEventListener("mousedown",e=>{down=true;sx=e.pageX;sl=g.scrollLeft;g.style.scrollSnapType="none"});
+window.addEventListener("mouseup",()=>{down=false;g.style.scrollSnapType=""});
+g.addEventListener("mousemove",e=>{if(!down)return;e.preventDefault();g.scrollLeft=sl-(e.pageX-sx)});
 
-/* cart */
-function renderCart(){
-  const n=cart.reduce((a,i)=>a+i.qty,0);
-  const c=$("#count");c.textContent=n;c.hidden=!n;
-  const body=$("#cartBody"), foot=$("#cartFoot");
-  if(!cart.length){body.innerHTML=`<p class="empty">${t("empty")}</p>`;foot.innerHTML="";return}
-  let sum=0;
-  body.innerHTML=cart.map(i=>{
-    const p=PRODUCTS.find(x=>x.id===i.id);sum+=p.price*i.qty;
-    return `<div class="row"><div class="th">${p.img?`<img src="${p.img}" alt="" style="width:100%;height:100%;object-fit:cover">`:""}</div>
-      <div class="i"><b>${p.name}</b>${t("size")}: ${i.size} · ${money(p.price)}<br>
-      <span class="q"><button data-q="-1" data-k="${i.key}" aria-label="−">−</button><span>${i.qty}</span><button data-q="1" data-k="${i.key}" aria-label="+">+</button></span>
-      <button class="rm" data-rm="${i.key}">${t("remove")}</button></div></div>`}).join("");
-  foot.innerHTML=`<div class="sub"><span>${t("sub")}</span><span>${money(sum)}</span></div>
-    <p class="note">${t("demo")}</p><button class="btn dk" disabled>${t("checkout")}</button>`;
+// reveal
+const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".reveal,.card").forEach(el=>io.observe(el));
+
+// nav + parallax
+const par = $("#parallax");
+window.addEventListener("scroll",()=>{
+  $("#nav").classList.toggle("scrolled",scrollY>40);
+  const r = par.parentElement.getBoundingClientRect();
+  if(r.top<innerHeight && r.bottom>0) par.style.transform=`translateY(${(r.top*-0.15)-60}px)`;
+},{passive:true});
+
+// cursor
+const c = $("#cursor");
+window.addEventListener("mousemove",e=>{c.style.left=e.clientX+"px";c.style.top=e.clientY+"px"});
+document.addEventListener("mouseover",e=>c.classList.toggle("big",!!e.target.closest(".card,.btn,a,button")));
+
+// cart
+let cart = JSON.parse(localStorage.getItem("temnak-cart")||"[]");
+const toast = msg => {const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2000)};
+function render(){
+  localStorage.setItem("temnak-cart",JSON.stringify(cart));
+  const n = cart.reduce((a,b)=>a+b.q,0);
+  $("#cartCount").textContent = n; $("#cartCount2").textContent = n;
+  $("#total").textContent = "€"+cart.reduce((a,b)=>a+b.q*products[b.i].price,0);
+  $("#items").innerHTML = cart.length ? cart.map((it,k)=>{const p=products[it.i];return `
+    <div class="item"><img src="${p.img}" alt="${p.name}"/>
+      <div><h4>${p.name}</h4><span class="mono">QTY ${it.q} — €${p.price*it.q}</span></div>
+      <button class="mono" data-rm="${k}">Remove</button></div>`}).join("")
+    : `<p class="mono empty">Your cart is empty</p>`;
 }
-$("#cartBody").addEventListener("click",e=>{
-  const q=e.target.closest("[data-q]"),r=e.target.closest("[data-rm]");
-  if(q){const i=cart.find(x=>x.key===q.dataset.k);i.qty+=+q.dataset.q;if(i.qty<1)cart=cart.filter(x=>x!==i)}
-  if(r)cart=cart.filter(x=>x.key!==r.dataset.rm);
-  save();renderCart();
+const openCart = o => {$("#drawer").classList.toggle("open",o);$("#scrim").classList.toggle("open",o)};
+g.addEventListener("click",e=>{
+  const b=e.target.closest(".add"); if(!b) return;
+  const i=+b.dataset.i, f=cart.find(x=>x.i===i);
+  f?f.q++:cart.push({i,q:1}); render(); toast(products[i].name+" added");
 });
-function openCart(){$("#drawer").classList.add("on");$("#ov").classList.add("on");$("#drawer").setAttribute("aria-hidden","false");setTimeout(()=>$("#drawer [data-close]").focus(),50)}
-function closeAll(){["#drawer","#modal"].forEach(s=>{$(s).classList.remove("on");$(s).setAttribute("aria-hidden","true")});$("#ov").classList.remove("on")}
-$("#cartBtn").onclick=openCart;
-$("#ov").onclick=closeAll;
-$$("[data-close]").forEach(b=>b.onclick=closeAll);
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
-
-/* menu */
-$("#burger").onclick=()=>{const m=$("#mnav"),o=m.classList.toggle("open");$("#burger").setAttribute("aria-expanded",o)};
-$$("#mnav a").forEach(a=>a.onclick=()=>$("#mnav").classList.remove("open"));
-
-/* language + currency */
-function applyLang(){
-  document.documentElement.lang=lang;
-  $$("[data-t]").forEach(el=>el.textContent=t(el.dataset.t));
-  $$("[data-al]").forEach(el=>el.setAttribute("aria-label",t(el.dataset.al)));
-  $$("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
-  $$("[data-cur]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.cur===cur));
-  buildHero();renderGrid();renderCart();renderModal();
-}
-$$("[data-lang]").forEach(b=>b.onclick=()=>{lang=b.dataset.lang;save();applyLang()});
-$$("[data-cur]").forEach(b=>b.onclick=()=>{cur=b.dataset.cur;save();applyLang()});
-
-/* reveal on scroll */
-const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.08});
-$$(".rv").forEach(el=>io.observe(el));
-
-$("#yr").textContent=new Date().getFullYear();
-applyLang();restart();
+$("#items").addEventListener("click",e=>{const k=e.target.dataset.rm;if(k!==undefined){cart.splice(+k,1);render()}});
+$("#cartBtn").onclick=()=>openCart(true);
+$("#closeCart").onclick=$("#scrim").onclick=()=>openCart(false);
+$("#checkout").onclick=()=>{if(!cart.length)return toast("Cart is empty");cart=[];render();openCart(false);toast("Order received — thank you")};
+$("#joinForm").onsubmit=e=>{e.preventDefault();e.target.reset();toast("You're on the list")};
+render();
 </script>
 </body>
 </html>
